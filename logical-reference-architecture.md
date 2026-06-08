@@ -1,5 +1,5 @@
 ---
-name: Enterprise Brain: logical reference architecture
+name: "Enterprise Brain: logical reference architecture"
 description: A tech-agnostic, capability-based logical reference architecture for an enterprise brain, the institutional memory-and-reasoning system that captures an organisation's proprietary knowledge, retrieves the right context, resolves trust, reasons over it, and runs resiliently, securely, compliantly, valuably, and at scale. Eight architecture-native capability groups plus a cross-cutting reasoning-and-orchestration band (43 capabilities, each a logical contract), the cross-walk that proves two-way coverage against the enterprise-brain evaluation framework, and three views (capability map, logical component/flow, the two-tier expression). Quality attributes are stated as classes, not numbers; no product or organisation is named.
 type: reference-architecture
 created: 2026-06-03

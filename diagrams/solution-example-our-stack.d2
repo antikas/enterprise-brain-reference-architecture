@@ -1,0 +1,91 @@
+# Solution-architecture example on our stack — canonical d2 (rendered to SVG). Public-generic.
+# SOLUTION/runtime view: real, named products. No organisation/client names.
+# Solid = BUILT (reconciled against the verified maturity scorecard).
+# Dashed = PLANNED / decided-but-not-built.
+direction: down
+
+legend: "Legend" {
+  near: top-left
+  built: "BUILT (exists today, scorecard-reconciled)"
+  planned: "PLANNED (contract declared, not built)" { style.stroke-dash: 3 }
+  built -> planned: "" { style.opacity: 0 }
+}
+
+author: "Author / consumer\nClaude Code · Obsidian · Claude Desktop" { shape: oval }
+
+ingress: "Markdown SSOT ingress\nmarkdown files + YAML frontmatter · git history · /capture · /vault-compile · /ingest-source" { style.fill: "#ecfdf5" }
+
+km: "koine-memory — the substrate" {
+  index: "Index pipeline\nparser -> chunker -> extractor -> indexer (+ ontology · pointers · scope)"
+  embed: "Embedder — bge-m3 · 1024-dim"
+  stores: "Stores\nvectors.db (sqlite-vec) · bm25 FTS · graph.db (12 relations) · provenance.db" { shape: cylinder; style.fill: "#234d36"; style.font-color: "#ffffff" }
+  retrieve: "Retrieve + score\nquery · graph_retrieval · hybrid_scorer · rerank · query_expansion"
+  intent: "Intent classifier / gate / router"
+  compose: "Compose\ncomposition_engine · L3A composition policy · token budget"
+  policy: "Retrieval policy\nL3B decay · PPR · graph-traversal · scope filters"
+}
+
+WriteGate: "Contradiction gate (C-G3.2)\nguarded_write_back · policy/contradiction.py\nconflict => HELD · non-bypassable" { shape: hexagon; style.fill: "#fee2e2" }
+HumanGate: "Write-back human gate (C-G5.2)\n/memory-writeback — approve / reject" { shape: hexagon; style.fill: "#fef9c3" }
+AccessGate: "Access mediation (C-G4.1)\nretrieval_filter — PARTIAL (annotate-only, Phase 7)" { shape: hexagon; style.fill: "#fef9c3"; style.stroke-dash: 3 }
+
+orchestrator: "Frontier orchestrator\nClaude (Claude Code / Desktop) · never fine-tuned · swappable" { style.fill: "#eef2ff" }
+
+specialists: "Specialist inventory (C-X2) — PLANNED\nsmall models tuned on corpus slices — the moat" { style.fill: "#f0eee6"; style.stroke-dash: 3 }
+
+substrate: "Durable-execution substrate — Restate (PLANNED for the vault)\nproven in sibling solutions' ADRs · replayable multi-step reasoning" { style.fill: "#f0eee6"; style.stroke-dash: 3 }
+
+corpuseval: "Proprietary corpus + eval substrate" {
+  corpus: "Vault corpus — markdown SSOT (~830 files)\nprinciples · concepts · learnings · research · projects · ontology" { shape: cylinder; style.fill: "#234d36"; style.font-color: "#ffffff" }
+  gt: "Ground-truth eval (eval/ground-truth) — retrieval quality (MH / SF)"
+  maturity: "Maturity scorecard — independently verified, three-role blind audit"
+  activation: "Activation eval (eval/activation) — activate-rate / follow-rate — BUILT"
+}
+
+ops: "Runtime + ops (forcing functions)" {
+  health: "koine-memory healthcheck — Scheduled Task (weekly) — embedder smoke test"
+  lint: "vault-lint — Scheduled Task (weekly) — hygiene + index coverage"
+  sanit: "sanitisation scanner — pre-commit deny-list (egress at commit boundary)"
+  cadence: "Enforced eval cadence — PLANNED (scheduler for the golden-set + maturity run)" { style.stroke-dash: 3 }
+}
+
+mine: "Experience flywheel — distil stage\noperational-data-mine: a running solution's audit.db -> propose-only candidate learnings (privacy-gated, provenance) — BUILT\ncross-user consent/de-identification boundary (C-G5.7) — PLANNED" { style.fill: "#f0f9ff" }
+
+# main request path
+author -> AccessGate: "query"
+AccessGate -> km.retrieve
+ingress -> km.index
+km.index -> km.embed -> km.stores
+km.index -> km.stores
+km.stores -> km.retrieve
+km.policy -> km.retrieve
+km.retrieve -> km.intent -> km.compose
+km.compose -> orchestrator: "composed context"
+orchestrator -> specialists: "route if a specialist fits (PLANNED)" { style.stroke-dash: 3 }
+orchestrator -> author: "answer + trust signals"
+
+# write-back path (the trust spine)
+author -> WriteGate: "proposed write" { style.stroke-dash: 3 }
+WriteGate -> km.stores: "clean -> landed"
+WriteGate -> HumanGate: "held (conflict)" { style.stroke-dash: 3 }
+HumanGate -> km.stores: "approved override (recorded)" { style.stroke-dash: 3 }
+km.stores -> ingress: "re-index after write-back"
+
+# substrate + corpus + eval
+substrate -> orchestrator: "hosts (PLANNED)" { style.stroke-dash: 3 }
+substrate -> specialists: "hosts (PLANNED)" { style.stroke-dash: 3 }
+corpuseval.corpus -> ingress: "feeds"
+corpuseval.corpus -> specialists: "grows (PLANNED)" { style.stroke-dash: 3 }
+corpuseval.gt -> km.retrieve: "grades retrieval"
+corpuseval.maturity -> km: "grades the brain"
+corpuseval.activation -> corpuseval.corpus: "grades learning activation"
+
+# ops constrains the engine
+ops.health -> km.embed: "tripwire"
+ops.lint -> corpuseval.corpus: "hygiene"
+ops.sanit -> ingress: "egress scan"
+ops.cadence -> corpuseval.maturity: "would fire (PLANNED)" { style.stroke-dash: 3 }
+
+# the experience flywheel — capture -> distil -> eval-gate -> promote -> improve
+corpuseval.activation -> mine: "eval-gate the candidate" { style.stroke: "#0284c7" }
+mine -> WriteGate: "promote (propose-only -> contradiction-safe -> human-gated)" { style.stroke: "#0284c7" }

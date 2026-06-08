@@ -1,0 +1,26 @@
+# EBRA — at-a-glance summary diagram. Canonical d2 (rendered to SVG). Public-generic.
+direction: right
+
+brain: "The enterprise brain" {
+  style.fill: "#eef2ff"
+  q1: "Is it a brain?\ncapture · retrieve · compose"
+  q2: "Is it trustworthy?\n(the moat)\nsource-of-truth · contradiction-safe\nwrite · provenance-in-record" { style.fill: "#ecfdf5" }
+  q3: "Can we run it?\nresilient · secure · compliant\nvaluable · at scale"
+  q1 -> q2 -> q3
+}
+
+thesis: "The two-tier engine\nfrontier orchestrator + a hybrid router +\nan inventory of specialists grown on your own data" { style.fill: "#fef9c3" }
+
+flywheel: "The experience flywheel\nevery interaction is a learning event:\ncapture → distil → eval-gate → promote → improve\n— the moat made dynamic" { style.fill: "#ffedd5" }
+
+spine: "The deterministic spine\nrecords as true only what a rule derives\nfrom observable evidence — no confabulated state" { style.fill: "#e0f2fe" }
+
+portable: "Runs on any stack\nthe same logical layer realised on\nour stack / a Google-shaped / an Azure-Snowflake-shaped cloud\n— with zero changes to the architecture"
+
+measured: "Graded honestly\nevery capability scored against an\nevaluation framework — you can see exactly\nwhat is built and what is a roadmap"
+
+thesis -> brain: "powers" { style.stroke-dash: 3 }
+flywheel -> brain: "improves with use" { style.stroke-dash: 3 }
+spine -> brain: "keeps state honest" { style.stroke-dash: 3 }
+brain -> portable: "is portable because it is capability-based" { style.stroke-dash: 3 }
+brain -> measured: "is measurable" { style.stroke-dash: 3 }

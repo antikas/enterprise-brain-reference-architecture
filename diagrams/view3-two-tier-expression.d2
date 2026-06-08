@@ -1,0 +1,43 @@
+# EBRA View 3 — The two-tier expression (the thesis IS the architecture). Canonical d2.
+# Public-generic: no organisation names, no product names.
+direction: down
+
+thesis: "The thesis (read top to bottom)" {
+  L0: "CHANNEL\nthe acting user / surface"
+  L1: "ORCHESTRATOR\nfrontier · general · swappable · never fine-tuned"
+  L2: "HYBRID ROUTER\nper-call: specialist or frontier"
+  L3: "SPECIALIST INVENTORY\ntuned on the proprietary corpus — the moat" { style.fill: "#ecfdf5" }
+  L4: "DURABLE-EXECUTION SUBSTRATE\nreplayable, failure-surviving reasoning"
+  L5: "PROPRIETARY CORPUS + EVALUATION SUBSTRATE\nwhat specialists are grown from and graded against" { shape: cylinder }
+  L0 -> L1 -> L2 -> L3 -> L4 -> L5
+}
+
+CapValue: "G7 Value and Feedback\nexplain · adoption · reliance · decision-quality · feedback loop"
+CapReason: "GX · C-X1 Orchestrate and route"
+CapInv: "GX · C-X2 Specialist inventory" { style.fill: "#ecfdf5" }
+CapGov: "G4 Security · G5 Governance · G6 Runtime\naccess · oversight · budget · isolation"
+CapRun: "G6 Runtime and Operations\nrecover · degrade · observe · SLOs"
+CapTrust: "G3 Trust and Provenance\nsource-of-truth · contradiction-safe write · provenance" { style.fill: "#ecfdf5" }
+CapCorpus: "G1 Knowledge Ingress and Lifecycle\ncapture · freshness · conform · curate"
+CapRetr: "G2 Retrieval and Composition"
+CapEval: "C-X2 eval cards · C-G5.5 validation · C-G6.4 drift · C-G7.1 decision-quality"
+
+thesis.L0 -> CapValue: "served via" { style.stroke-dash: 3 }
+thesis.L1 -> CapReason: "realised by" { style.stroke-dash: 3 }
+thesis.L2 -> CapReason: "realised by" { style.stroke-dash: 3 }
+thesis.L3 -> CapInv: "realised by" { style.stroke-dash: 3 }
+thesis.L2 -> CapGov: "constrained by" { style.stroke-dash: 3 }
+thesis.L4 -> CapRun: "realised by" { style.stroke-dash: 3 }
+thesis.L4 -> CapTrust: "trust-gated by" { style.stroke-dash: 3 }
+thesis.L5 -> CapCorpus: "realised by" { style.stroke-dash: 3 }
+thesis.L5 -> CapRetr: "found by" { style.stroke-dash: 3 }
+thesis.L5 -> CapEval: "graded by" { style.stroke-dash: 3 }
+
+# The two runtime companions to the thesis (see §1 of the logical RA)
+flywheel: "RUNTIME COMPANION — the experience flywheel\ncapture -> distil -> eval-gate -> promote -> improve\nthe thesis turning under its own power once live" { style.fill: "#f0f9ff" }
+spine: "RUNTIME COMPANION — the deterministic spine\nstate acted on as true = a rule over observable events\nLLM generates/judges (gated); the specialist tier is trained" { style.fill: "#f8fafc" }
+
+flywheel -> thesis.L5: "feeds the corpus from use" { style.stroke-dash: 4; style.stroke: "#0284c7" }
+flywheel -> CapValue: "run by C-G7.5" { style.stroke-dash: 4; style.stroke: "#0284c7" }
+spine -> CapTrust: "anchored at C-G3.1 source-of-truth" { style.stroke-dash: 4 }
+spine -> thesis.L1: "bounds the generative tier (gated, audited)" { style.stroke-dash: 4 }

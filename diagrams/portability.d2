@@ -1,0 +1,37 @@
+# EBRA portability proof — one logical layer, N solution realisations. Canonical d2.
+# Public-generic: NO organisation names. Public product names are allowed.
+direction: right
+
+logical: "ONE LOGICAL REFERENCE ARCHITECTURE\n43 capabilities · logical contracts · quality as classes\nNO product · NO vendor · NO organisation" {
+  style.fill: "#eef2ff"
+  style.font-size: 16
+  style.bold: true
+}
+
+our: "Realisation 1 — our stack\nkoine-memory · markdown SSOT · git\nbge-m3 · BM25 · Claude orchestrator\nthe n=1 reference instance" {
+  style.fill: "#ecfdf5"
+}
+
+cloudA: "Realisation 2 — Cloud-A\na Google-Cloud-shaped stack\nVertex AI Search · BigQuery · Cloud Run / Workflows\nVertex Model Registry · Dataplex" {
+  style.fill: "#fefce8"
+}
+
+cloudB: "Realisation 3 — Cloud-B\nan Azure-Snowflake-shaped stack\nAzure AI Search · Snowflake Cortex · Durable Functions\nAzure ML registry · Snowflake Horizon / Purview" {
+  style.fill: "#fefce8"
+}
+
+more: "...realisation N\n(any organisation, any stack)" {
+  style.stroke-dash: 3
+  style.fill: "#f8fafc"
+}
+
+logical -> our: "realised by (zero logical edits)" { style.stroke-dash: 3 }
+logical -> cloudA: "realised by (zero logical edits)" { style.stroke-dash: 3 }
+logical -> cloudB: "realised by (zero logical edits)" { style.stroke-dash: 3 }
+logical -> more: "substitutable" { style.stroke-dash: 3 }
+
+note: "Portability is DEMONSTRATED the moment a second realisation\nis expressible without editing the logical layer.\nThree are expressed here. The logical layer needed ZERO edits." {
+  style.fill: "#ffffff"
+  style.stroke-dash: 2
+  near: bottom-center
+}

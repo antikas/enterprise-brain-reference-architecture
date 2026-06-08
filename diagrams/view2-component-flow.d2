@@ -1,0 +1,53 @@
+# EBRA View 2 — Logical component + flow, with trust gates inline. Canonical d2.
+# Public-generic: no organisation names, no product names.
+direction: down
+
+User: "Acting user / channel" { shape: oval }
+
+AccessGate: "Access mediation (C-G4.1)\nneed-to-know · server-side identity" { shape: hexagon; style.fill: "#fef9c3" }
+WriteGate: "Contradiction-safe write gate (C-G3.2)\nconflict => held for a human · non-bypassable" { shape: hexagon; style.fill: "#fee2e2" }
+Oversight: "Human oversight (C-G5.2)\nmoney / regulated-data decisions" { shape: hexagon; style.fill: "#fef9c3" }
+ConsentGate: "Cross-user promotion boundary (C-G5.7)\nde-identified · consented · zero raw individual data" { shape: hexagon; style.fill: "#fef9c3" }
+
+brain: "The enterprise brain — logical components" {
+  Ingress: "Ingress and lifecycle (G1)\ncapture · freshness · sweep · conform · curate"
+  Index: "Indexed corpus + authoritative store (P13/P3)" { shape: cylinder }
+  Retrieve: "Retrieve (C-G2.1)\n[retrieval]" { style.fill: "#fff7ed" }
+  Compose: "Compose (C-G2.2)\ndeterministic, budgeted slots"
+  Router: "Orchestrate and route (C-X1)\nspecialist or frontier?" { shape: diamond; style.fill: "#eef2ff" }
+  Specialist: "Specialist inventory (C-X2)\ntuned on corpus slices — the moat\n[trained]" { style.fill: "#ecfdf5" }
+  Frontier: "Frontier orchestrator\ngeneral · never fine-tuned · swappable\n[generative]" { style.fill: "#faf5ff" }
+  Answer: "Answer + trust signals\nuser explainability C-G7.4 [generative]" { shape: oval }
+  Substrate: "Durable-execution substrate (P10)\nreplayable multi-step reasoning"
+  CorpusEval: "Proprietary corpus + evaluation substrate\nspecialists are grown from / graded against" { shape: cylinder }
+  Capture: "Capture (C-G7.2 / C-G3.3)\nevery interaction · provenance-complete" { shape: cylinder; style.fill: "#f1f5f9" }
+  Flywheel: "Experience flywheel (C-G7.5)\ncapture -> distil -> eval-gate -> promote -> improve\ncalibrated held-out gate (C-G5.5) · three-role\ncapture everything, promote nothing unaudited" { style.fill: "#f0f9ff" }
+}
+
+User -> AccessGate -> brain.Retrieve
+brain.Ingress -> brain.Index
+brain.Index -> brain.Retrieve -> brain.Compose -> brain.Router
+brain.Router -> brain.Specialist: "fits + clears gate"
+brain.Router -> brain.Frontier: "novel / low-confidence / out-of-corpus"
+brain.Specialist -> brain.Answer
+brain.Frontier -> brain.Answer
+brain.Answer -> Oversight: "gated decisions" { style.stroke-dash: 3 }
+Oversight -> User: { style.stroke-dash: 3 }
+brain.Answer -> User: "act" { style.stroke-dash: 3 }
+brain.Answer -> WriteGate: "proposed write" { style.stroke-dash: 3 }
+WriteGate -> brain.Index: "clean"
+WriteGate -> Oversight: "held" { style.stroke-dash: 3 }
+brain.Substrate -> brain.Router: "hosts" { style.stroke-dash: 3 }
+brain.Substrate -> brain.Specialist: "hosts" { style.stroke-dash: 3 }
+brain.CorpusEval -> brain.Specialist: "grows / grades" { style.stroke-dash: 3 }
+brain.Index -> brain.CorpusEval: "feeds" { style.stroke-dash: 3 }
+
+# The experience flywheel — the always-on learning loop (capture -> distil -> eval-gate -> promote -> improve)
+brain.Answer -> brain.Capture: "every interaction is a learning event" { style.stroke-dash: 3; style.stroke: "#0284c7" }
+brain.Capture -> brain.Flywheel: "distil" { style.stroke-dash: 3; style.stroke: "#0284c7" }
+brain.Flywheel -> ConsentGate: "cross-user candidate" { style.stroke-dash: 3; style.stroke: "#0284c7" }
+ConsentGate -> WriteGate: "de-identified, consented" { style.stroke-dash: 3; style.stroke: "#0284c7" }
+brain.Flywheel -> WriteGate: "promote (eval-gated, contradiction-safe)" { style.stroke-dash: 3; style.stroke: "#0284c7" }
+brain.Flywheel -> brain.Specialist: "fine-tune target (improve in inventory form)" { style.stroke-dash: 3; style.stroke: "#0284c7" }
+
+Legend: "Determinism spine: components are deterministic-claim unless tagged.\nDepartures — [retrieval] C-G2.1 · [trained] C-X2 · [generative] frontier + C-G7.4.\nBlue dashed loop = the experience flywheel." { shape: text; style.font-size: 13 }

@@ -1,0 +1,76 @@
+# EBRA View 1 — Capability map (heatmappable). Canonical d2; rendered to SVG via pinned d2.
+# Public-generic: no organisation names, no product names.
+direction: down
+
+GX: "GX · Reasoning and Orchestration  (cross-cutting — the two-tier thesis)" {
+  style.fill: "#eef2ff"
+  style.stroke-dash: 3
+  X1: "C-X1 Orchestrate and route"
+  X2: "C-X2 Maintain specialist inventory"
+}
+
+G1: "G1 · Knowledge Ingress and Lifecycle" {
+  G1a: "C-G1.1 Capture"
+  G1b: "C-G1.2 Freshness"
+  G1c: "C-G1.3 Contradiction sweep"
+  G1d: "C-G1.4 Ontology conformance"
+  G1e: "C-G1.5 Lifecycle governance"
+}
+
+G2: "G2 · Retrieval and Context Composition" {
+  G2a: "C-G2.1 Retrieve"
+  G2b: "C-G2.2 Compose"
+}
+
+G3: "G3 · Trust and Provenance  (the moat)" {
+  style.fill: "#ecfdf5"
+  G3a: "C-G3.1 Source of truth"
+  G3b: "C-G3.2 Contradiction-safe write"
+  G3c: "C-G3.3 Provenance-in-record"
+}
+
+G4: "G4 · Security and Access Control" {
+  G4a: "C-G4.1 Access"
+  G4b: "C-G4.2 Prompt-injection"
+  G4c: "C-G4.3 Poisoning"
+  G4d: "C-G4.4 Egress"
+  G4e: "C-G4.5 Supply-chain"
+  G4f: "C-G4.6 Tool agency"
+  G4g: "C-G4.7 Adversarial assurance"
+}
+
+G5: "G5 · Governance and Compliance" {
+  G5a: "C-G5.1 Management system"
+  G5b: "C-G5.2 Human oversight"
+  G5c: "C-G5.3 Audit reconstruction"
+  G5d: "C-G5.4 Erasure and retention"
+  G5e: "C-G5.5 Model validation"
+  G5f: "C-G5.6 Residency and resilience"
+  G5g: "C-G5.7 Cross-user promotion boundary"
+}
+
+G6: "G6 · Runtime and Operations" {
+  G6a: "C-G6.1 SLOs"
+  G6b: "C-G6.2 Silent-failure detect"
+  G6c: "C-G6.3 Recover from store"
+  G6d: "C-G6.4 Quality drift"
+  G6e: "C-G6.5 Graceful degradation"
+  G6f: "C-G6.6 Rehearse failure"
+  G6g: "C-G6.7 Cost and budget"
+  G6h: "C-G6.8 Latency"
+  G6i: "C-G6.9 Caching"
+  G6j: "C-G6.10 Sustainability"
+  G6k: "C-G6.11 Observability"
+  G6l: "C-G6.12 Scale and isolation"
+}
+
+G7: "G7 · Value and Feedback" {
+  G7a: "C-G7.1 Decision quality"
+  G7b: "C-G7.2 Adoption"
+  G7c: "C-G7.3 Appropriate reliance"
+  G7d: "C-G7.4 User explainability"
+  G7e: "C-G7.5 Feedback loop"
+}
+
+GX -> G1: {style.stroke-dash: 4}
+G1 -> G2 -> G3 -> G4 -> G5 -> G6 -> G7: "canonical flow order"

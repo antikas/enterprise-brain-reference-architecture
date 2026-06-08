@@ -36,8 +36,6 @@ It does three jobs at once:
 
 > **Diagram convention (living-architecture discipline):** the §3 solution diagram is authored in **d2** and **rendered to SVG** via the pinned binary. A diagram is done when it *renders*, not when its source parses. **Solid = BUILT** (reconciled against the verified scorecard). **Dashed = PLANNED** (contract declared, component not built).
 
----
-
 ## 2. The capability → component mapping
 
 Every one of the forty-three logical capabilities, by ID and name, mapped to the concrete component(s) on this stack, with an honest **BUILT / PARTIAL / PLANNED** status. The status column is reconciled against the verified maturity scorecard: where the scorecard grades the owning layer below Strong, the status is held down to PARTIAL or PLANNED regardless of how complete the component *looks*.
@@ -151,8 +149,6 @@ The per-capability determinism classification is owned by the [logical layer](lo
 - **`trained` (`C-X2`):** the PLANNED specialist inventory (small models tuned on corpus slices). The trained layer is declared, not yet populated (frontier-first at n=1).
 - **`generative` (`C-G7.4`):** the Claude frontier orchestrator and the user-facing explanation. Everything the system *records or acts on as true* stays on the deterministic spine; the LLM generates and judges, gated and audited, never the author of a recorded claim.
 
----
-
 ## 3. The living solution diagram
 
 The SOLUTION/runtime view of this stack: real, named components and real topology. Authored in d2 and **rendered to SVG via the pinned d2 binary** (`d2 --layout elk`); a diagram is done when it renders, not when its source parses. **Solid = BUILT** (reconciled against the verified scorecard); **dashed = PLANNED**.
@@ -162,8 +158,6 @@ The SOLUTION/runtime view of this stack: real, named components and real topolog
 *Source (canonical):* [diagrams/solution-example-our-stack.d2](diagrams/solution-example-our-stack.d2), rendered to the SVG above via the pinned d2 binary (v0.6.9, `--layout elk`) per the living-solution-architecture discipline. The diagram is *done* when it renders, not when its source parses.
 
 *Legend.* The trust gates are real components: the **contradiction gate** (`guarded_write_back` + `policy/contradiction.py`) is the sole, non-bypassable write path; the **write-back human gate** (`/memory-writeback`) adjudicates held writes. **Access mediation** (`retrieval_filter`) is dashed because it is PARTIAL (annotate-only, candidate filtering is Phase 7). The **specialist inventory** and **Restate** durable substrate are dashed (PLANNED for the vault). The three eval tiers (ground-truth, maturity, activation) grade retrieval, the brain, and learning-activation respectively; the **enforced eval cadence** is dashed because no scheduler fires it yet.
-
----
 
 ## 4. How it doubles as proof
 
@@ -179,12 +173,8 @@ The mapping table answers the central claim of the logical layer: *state a capab
 2. **C-G3.1 source-of-truth = PARTIAL, marked *down* from a tempting BUILT.** A `decay_scorer` exists and the trust rule is articulated, so it looks built. But `valid_from` autofill is unimplemented, so most files lack the recency anchor and decay is a ~1-2%-of-queries soft nudge, not "recency wins by rule". The scorecard grades it Partial; so it is PARTIAL here.
 3. **C-G7.5 feedback loop = BUILT at build-cycle grain, marked *up* honestly, but bounded.** The scorecard graded the Feedback layer *down* (Strong→Partial) because the loop was documentary, not adaptive: nothing queried learnings during a build, so a same-class failure recurred after it was written down. The activation eval + pre-dispatch recall ritual is exactly the fix, and it has shipped, so the build-cycle-grain loop is genuinely BUILT. The corpus-wide *measured* feedback-to-improvement latency remains the PARTIAL remainder, and it depends on the still-PLANNED retrieval-access log (C-G7.2). Claiming the whole layer BUILT would be the optimistic-BUILT error; claiming none of it would deny the shipped activation eval.
 
----
-
 ## 5. Second-environment note
 
 This mapping is one realisation, not the only one. A different enterprise reads the same [logical reference architecture](logical-reference-architecture.md) and stands up its **own** capability→component mapping against the identical forty-three-capability layer (on its own cloud, its own model providers, its own stores, its own durable substrate) without changing a word of the logical layer. That second mapping is a **separate, private** solution-architecture artefact: it lives with that organisation, names its products, and references the logical layer the same way this one does. Portability is demonstrated the moment a second mapping is expressible without editing the logical core; this document is the first such mapping, and it is deliberately the public, product-named-but-organisation-free one.
-
----
 
 *Paired with:* the [logical reference architecture](logical-reference-architecture.md) (the tech-agnostic layer this realises) and an independently verified maturity scorecard (the requirements-conformance evidence the BUILT claims are reconciled against). It is the enterprise-brain reference implementation, the n=1 instance.

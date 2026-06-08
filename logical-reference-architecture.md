@@ -72,8 +72,6 @@ This logical layer **names no product, platform, or vendor, anywhere.** That is 
 
 A concrete solution architecture on a real stack is valuable, but it is a *separate* artefact that links **to** this one and is linked **from** it, never absorbed into it. Keeping the two apart is the whole reason this layer is reusable across organisations.
 
----
-
 ## 2. The capability map
 
 The brain decomposes into **eight architecture-native capability groups plus one cross-cutting band**, forty-three capabilities in total. The grouping follows **the life of a fact and the life of a query** through the system, in flow order:
@@ -99,8 +97,6 @@ The cross-cutting band **GX** sits *between* retrieval (G2) and the answer, draw
 > **Quality-attribute classes** (each organisation sets the number): *Availability · Latency · Durability · Isolation · Auditability · Freshness · Integrity · Confidentiality · Cost-efficiency · Explainability.*
 
 > **Runtime primitives** (the reusable how-vocabulary the contracts draw on, named once here): **P1** two-layer contract (composition decides *what*, runtime decides *how*) · **P2** the reliability/efficiency/scalability/trust operating dimensions · **P3** state separation (the store is authoritative, not the model) · **P4** execution-isolation ladder · **P5** budgets enforced before the call · **P6** timeouts / retries / circuit-breakers · **P7** policy gateway (the control point on every guarded path) · **P8** graceful-degradation mode catalogue · **P9** the context/token pipeline (collect → rank → compress → budget → assemble) · **P10** closure-as-evidence (an action closes only when its gate verdict returns) · **P11** two trace streams (composition + runtime) made queryable · **P12** the versioned capability descriptor / model card · **P13** tiered memory (short-term working memory + authoritative long-term store) · **P14** runtime mode mirrors the declared composition shape.
-
----
 
 ### G1: Knowledge Ingress & Lifecycle
 
@@ -154,8 +150,6 @@ The cross-cutting band **GX** sits *between* retrieval (G2) and the answer, draw
 - **Dependencies.** Consumes `C-G1.2`/`C-G1.3`/`C-G1.4`; shares the human-gate pattern with `C-G3.2` and `C-G5.2`.
 - **n=1 band.** In scope at n=1 for the decay it bounds; the enforced-cadence discipline is cheap to declare now and bites harder multi-author.
 
----
-
 ### G2: Retrieval & Context Composition
 
 #### `C-G2.1` Retrieve relevant context
@@ -177,8 +171,6 @@ The cross-cutting band **GX** sits *between* retrieval (G2) and the answer, draw
 - **Runtime primitives.** P9, P5.
 - **Dependencies.** Consumes `C-G2.1`; reads trust flags from G3; constrained by `C-G6.7` (budget); feeds `C-X1`.
 - **n=1 band.** In scope at n=1: mis-assembly (lost-in-the-middle, over-budget) degrades every answer.
-
----
 
 ### G3: Trust & Provenance *(the moat)*
 
@@ -212,8 +204,6 @@ The cross-cutting band **GX** sits *between* retrieval (G2) and the answer, draw
 - **Dependencies.** Consumes `C-G1.1` and `C-G3.2`; feeds `C-G5.3` (audit reconstruction reads in-record provenance).
 - **n=1 band.** In scope at n=1: a single author cannot reconstruct their own past decision without it.
 
----
-
 ### GX: Reasoning & Orchestration *(cross-cutting: the two-tier thesis)*
 
 > The two capabilities below carry the architectural spine. By design they **own no eval dimension**: they are the reasoning tier the evaluation framework measures *through*, not a graded line. Each *supports* dimensions owned elsewhere; the cross-walk records that with support edges.
@@ -237,8 +227,6 @@ The cross-cutting band **GX** sits *between* retrieval (G2) and the answer, draw
 - **Runtime primitives.** P12, P10, P13.
 - **Dependencies.** Consumes the corpus (`C-G1.1`) and its lineage (`C-G3.3`); routed-to by `C-X1`; shares the independent-validation pattern with `C-G5.5`.
 - **n=1 band.** Structurally deferred: an inventory is an accumulated asset (frontier-first, specialists-later). The cards schema + eval-before-deploy gate are declared now; the populated inventory is a later-stage concern.
-
----
 
 ### G4: Security & Access Control
 
@@ -312,8 +300,6 @@ The cross-cutting band **GX** sits *between* retrieval (G2) and the answer, draw
 - **Dependencies.** Supplies the suites for `C-G4.2`/`C-G4.3`/`C-G4.4`; feeds `C-G5.1`.
 - **n=1 band.** In scope at n=1 for the bite; the formal cadence is a declare-now discipline.
 
----
-
 ### G5: Governance & Compliance
 
 #### `C-G5.1` Operate the AI management system
@@ -385,8 +371,6 @@ The cross-cutting band **GX** sits *between* retrieval (G2) and the answer, draw
 - **Runtime primitives.** P7, P10, P13.
 - **Dependencies.** Gates the cross-user scale of the flywheel (`C-G7.5`); reuses the egress-control pattern of `C-G4.4` and the erasure/retention machinery of `C-G5.4`; its promotion decisions are human-gated via `C-G5.2`.
 - **n=1 band.** Structurally deferred: cross-user promotion needs a population to bite; declare the boundary now so the cross-user flywheel is never a privacy retrofit. The hardest unsolved piece, *what exactly may cross the boundary, and how it is proven safe*, is named here, not solved.
-
----
 
 ### G6: Runtime & Operations
 
@@ -510,8 +494,6 @@ The cross-cutting band **GX** sits *between* retrieval (G2) and the answer, draw
 - **Dependencies.** Builds on `C-G4.1`; relates to `C-G5.6`.
 - **n=1 band.** Structurally deferred: isolation needs many consumers to bite; the gate must exist now (isolation-by-construction is a design property, not a retrofit) so multi-tenant is not bolted on.
 
----
-
 ### G7: Value & Feedback
 
 #### `C-G7.1` Measure decision quality
@@ -564,8 +546,6 @@ The cross-cutting band **GX** sits *between* retrieval (G2) and the answer, draw
 - **Dependencies.** Consumes the access log and provenance-complete capture (`C-G7.2`/`C-G3.3`); the adaptive mechanism is realised *in inventory form* by `C-X2` and the brain-level eval-gate by `C-G5.5`; the cross-user boundary is `C-G5.7`; contradiction-safety on promoted writes is `C-G3.2`; surfaced via `C-G6.11`'s eval-in-production pillar.
 - **n=1 band.** In scope at n=1: the documentary-not-adaptive failure and an uncalibrated gate both bite a single author (a correction that did not prevent same-class recurrence); the per-session and per-user scales fully apply at n=1, the cross-user scale (with `C-G5.7`) is the deferred half.
 
----
-
 ### The experience flywheel: the always-on learning loop *(cross-cutting)*
 
 Like the two-tier reasoning band (GX), the experience flywheel is a **cross-cutting expression** that runs *through* the groups rather than a single capability. It is the brain's defining runtime property: **every production interaction is a learning event** that, captured and promoted under gate, makes the brain better for the next one. The loop is one always-on cycle:
@@ -596,8 +576,6 @@ Each stage has a home capability already in the map, which is why the flywheel i
 6. **A human gate where stakes warrant**: `C-G5.2`. Autonomy on the capture side; gated on the promote side.
 
 **The discipline in one line: capture everything, promote nothing unaudited.** The flywheel is the deterministic spine's dual (see §1): the spine bounds *what may be recorded as true*, the flywheel drives *what is learned from use*, and the promotion target always lands in the deterministic spine, never as a model's unguarded guess.
-
----
 
 ## 3. The cross-walk table (the conformance instrument)
 
@@ -706,8 +684,6 @@ All 14 primitives are drawn on; no capability is primitive-orphaned.
 | P13 Tiered memory | C-G1.1, C-G1.2, C-G1.3, C-G1.5, C-G2.1, C-X2, C-G3.1, C-G4.3, C-G5.4, C-G5.7, C-G6.3, C-G7.5 |
 | P14 Runtime mirrors composition | C-G5.2, C-G6.12 |
 
----
-
 ## 4. The three views
 
 ### View 1: The capability map
@@ -740,8 +716,6 @@ This view makes the architectural spine explicit: it maps the five thesis layers
 
 *Legend.* The left-hand vertical stack is the thesis (channel → orchestrator → router → specialist inventory → durable substrate → corpus + eval). Each dashed edge points to the capability group(s) that **realise**, **constrain**, **trust-gate**, or **grade** that layer. The two cross-cutting capabilities (`C-X1` router, `C-X2` inventory) realise the middle two thesis layers directly; the eight quality groups wrap them. This is the same architecture as View 2, drawn so the thesis is the organising axis.
 
----
-
 ## 5. The n=1-vs-enterprise calibration
 
 A reference architecture has to be honest about which capabilities a *small* instance can fully exercise and which only bite once the brain has many users and a regulated footprint. This calibration is **inherited from the evaluation framework**: its rule is that a capability whose failure needs many consumers to bite is **structurally deferred** (declare the contract, defer enforcement), while a capability whose failure bites a single confident author is **fully in scope** even at n=1. The point is so that **any instance can grade itself honestly**: a one-author instance is not failing because it has no multi-tenant isolation traffic; it is correctly *deferring* that capability while declaring the gate.
@@ -755,8 +729,6 @@ A reference architecture has to be honest about which capabilities a *small* ins
 **Mixed** (part bites now, part defers): human oversight (`C-G5.2`: the write-path maker-checker gate bites at n=1; read-path decision oversight defers); cost and budget (`C-G6.7`: runaway spend bites a single author; cost-allocation defers); decision quality (`C-G7.1`: high-confidence-wrong bites now; the controlled-trial comparison defers); adoption (`C-G7.2`: the author's own usage bites; population adoption defers).
 
 An organisation profiling this architecture reads its own situation against these bands: a single-author knowledge instance grades itself against the "fully in scope" set and *declares* the deferred set; a regulated multi-user deployment must turn the whole deferred set live.
-
----
 
 ## 6. How it stays tech-agnostic
 

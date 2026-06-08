@@ -43,8 +43,6 @@ UK-regulated brain is **FCA-PRA SS1/23** (no carve-out) + ISO/IEC 42001; EU AI A
 obligations apply from **2 Aug 2026** (fines to 7%/3% of turnover). Where the tables below say
 "SR 11-7", read "SS1/23 + ISO 42001 (SR 26-2 = US lens)".
 
----
-
 ## 1. The structure: seven questions, 41 dimensions
 
 Each dimension carries a **headline criterion** and an **anchor standard**. Maturity is scored on a band
@@ -129,8 +127,6 @@ secure · E compliant · F valuable · G at-scale**) are where an enterprise bra
 A typical maturity profile builds a trustworthy retrieval core and has barely begun on resilient,
 secure, compliant, valuable, and at-scale.
 
----
-
 ## 2. The pattern: where brains are typically strong vs blind
 
 Across the dimensions, the same shape recurs and is worth naming because it is the inverse of where
@@ -158,8 +154,6 @@ a captured correction that does not change a later answer. This is the literal "
 separates the small fraction of enterprise GenAI that delivers value from the majority that does not.
 These are not missing dimensions. They are **existing layers (Feedback and Evaluation) failing their
 enterprise bar.**
-
----
 
 ## 3. Build shortlist, sequenced by leverage
 
@@ -203,8 +197,6 @@ A generic leverage order for closing the gap. The first two dominate everything 
 12. **Cost + carbon + p95 instrumentation** (G1/G3/G5). Lowest urgency at small scale; a hard
     compliance/ESG gap the moment the brain is multi-tenant or reported.
 
----
-
 ## 4. n=1 vs enterprise: the calibration rule *(so an instance is neither over-credited nor over-penalised)*
 
 Several dimensions are **genuinely not-yet-needed at n=1** and should be scored **"structurally
@@ -233,8 +225,6 @@ confident wrong answer):
 **The clean rule:** *failures that need many consumers to bite* → structurally deferred (declare the
 field/target, defer enforcement). *Failures that bite a single confident author* → fully in scope at
 n=1, graded without mercy.
-
----
 
 ## 5. Strategic read
 

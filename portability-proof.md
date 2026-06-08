@@ -36,8 +36,6 @@ These are *archetypes*, named by their technology shape, not by any organisation
 
 > **Status convention.** This is a *portability* proof, not a maturity proof. The our-stack column carries the honest BUILT/PARTIAL/PLANNED status from the [solution example](solution-example-our-stack.md) (reconciled against the verified scorecard). The Cloud-A and Cloud-B columns name the **intended component** that would honour each capability's contract; they are *expressibility* claims (the contract is realisable on that stack with a named product), not maturity claims about a system anyone has built. That is exactly the right grain for a portability proof: the question is *"can the logical contract be honoured on this stack?"*, not *"has someone already built it?"*
 
----
-
 ## 2. The comparative mapping
 
 Every one of the forty-three capabilities is portable, and expressing all forty-three as a three-column table would be unwieldy. So the table below carries a **representative, high-signal subset that covers every group**, all eight capability groups plus the cross-cutting band, and deliberately includes the load-bearing capabilities the proof must not skip: the **trust core** (G3), the **cross-cutting router and inventory** (GX), the **durable substrate**, **retrieval** (G2), **governance** (G5), **security** (G4), and **resilience/operations** (G6). Each row reads: **logical capability → our-stack realisation | Cloud-A (Google-shaped) | Cloud-B (Azure-Snowflake-shaped)**. Public product names only.
@@ -110,8 +108,6 @@ Every one of the forty-three capabilities is portable, and expressing all forty-
 | **C-G7.2** Instrument adoption *(the keystone retrieval-access log)* | Retrieval-access log *(PLANNED: its absence blocks C-G7.1/.5 and the C-G5.3 read-path)* | A retrieval-access log in BigQuery (query → results → use); invoked-vs-bypassed + abandoned-query rate in Looker | A retrieval-access log in a Snowflake table; invoked-vs-bypassed + abandoned-query rate in Power BI |
 | **C-G7.5** Close the feedback-to-improvement loop | Activation eval + pre-dispatch recall ritual *(BUILT at build-cycle grain)* | Captured corrections re-train a Vertex specialist (the adaptive-in-inventory form) and/or are surfaced at the next same-class request; feedback-to-improvement latency measured | Captured corrections re-train an Azure ML / Cortex specialist and/or are surfaced at the next same-class request; latency measured |
 
----
-
 ## 3. The portability conclusion (SC-4)
 
 > **SC-4 result: the logical layer required ZERO edits to express either Cloud-A or Cloud-B.**
@@ -133,8 +129,6 @@ The discipline requires that any capability which *could not* be realised on an 
 
 The conclusion stands: **one logical layer, three realisations, zero logical-layer edits.** Portability is proven, not claimed.
 
----
-
 ## 4. One logical layer, N realisations
 
 ![Portability: one tech-agnostic logical reference architecture (43 capabilities, no product or organisation named) realised by three substitutable stacks: our stack (koine-memory, the n=1 instance), Cloud-A (a Google-Cloud-shaped stack: Vertex AI Search, BigQuery, Cloud Run/Workflows, Vertex Model Registry, Dataplex) and Cloud-B (an Azure-Snowflake-shaped stack: Azure AI Search, Snowflake Cortex, Durable Functions, Azure ML registry, Snowflake Horizon/Purview), and extensible to any further realisation N, each realised with zero edits to the logical layer](diagrams/portability.svg)
@@ -142,8 +136,6 @@ The conclusion stands: **one logical layer, three realisations, zero logical-lay
 *Source (canonical):* [diagrams/portability.d2](diagrams/portability.d2), rendered to the SVG above via the pinned d2 binary (v0.6.9, `--layout elk`) per the render-diagrams-to-verify discipline. A diagram is done when it *renders*, not when its source parses.
 
 *Legend.* The single shaded node on the left is the **logical reference architecture** (the invariant). Each dashed edge points to a **substitutable realisation**: our stack (the n=1 instance), Cloud-A, Cloud-B, and an open "...realisation N". Every edge is labelled *realised by (zero logical edits)*, which is the whole claim: the layer fans out to N stacks without itself changing.
-
----
 
 ## 5. Where this sits
 

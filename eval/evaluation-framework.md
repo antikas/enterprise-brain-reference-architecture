@@ -1,9 +1,7 @@
 ---
 name: Enterprise Brain Evaluation Framework
-description: 'A capability-neutral evaluation framework for an enterprise brain, the institutional memory-and-reasoning system. Extends the popular "company brain" rubric (is-it-a-brain + is-it-auditable) to a full enterprise instrument: functional + trustworthy + resilient + secure + compliant + valuable + runnable-at-scale. Seven groups, 41 measurable dimensions (incl. the flywheel/spine additions B4, E8, and flywheel health folded into F5), each anchored to a named external standard (Google SRE, AWS Well-Architected, NIST AI RMF, ISO/IEC 42001, EU AI Act, SR 11-7 / SS1-23, DORA, OWASP LLM Top 10, MITRE ATLAS, FinOps, OTel-GenAI, ISO 30401, DAMA). Includes the n=1-vs-enterprise calibration rule and a leverage-sequenced build shortlist. The requirements specification the Enterprise Brain Reference Architecture answers.'
+description: Requirements and evidence for assessing the function, trust, resilience, security, governance, value, and operation of an enterprise brain.
 type: research
-created: 2026-06-03
-valid_from: 2026-06-03
 tags:
   - type/research
   - scope/architecture
@@ -13,249 +11,214 @@ tags:
 aliases:
   - enterprise brain evaluation
   - enterprise brain maturity
-  - beyond the 8-layer rubric
 ---
 
 # Enterprise Brain Evaluation Framework
 
-**The reframe.** The popular "company brain" model (and the common 8-layer extension of it) answers two
-questions: *is it a brain?* (capture → retrieval) and *is it auditable?* (source-truth +
-contradiction-safety + provenance). That is necessary and not nearly sufficient. The real question is:
-**what does a fully functional, value-adding, fully resilient and compliant *enterprise* brain look
-like, and what evaluation lets an organisation measure and improve its own?**
+An enterprise brain needs more than capture and retrieval. It must also preserve authority, survive failure, resist attack, meet its legal duties, improve decisions, and operate at enterprise scale.
 
-This artefact is that evaluation. It keeps the 8 layers, places them inside a larger structure, and
-adds the dimensions an enterprise brain succeeds or fails in production on that the consumer model never names.
+This framework defines the requirements and the evidence used to assess them. The [logical reference architecture](../logical-reference-architecture.md) assigns each requirement to one owning capability.
 
-**Anchoring observation.** Applied to a small (n=1) reference instance, an honest three-role scorecard
-of the original 8 layers scores around **~2.1/4**, and predicts exactly this extension. Its deepest
-finding, **feedback that is documentary, not adaptive** (a written correction does not prevent the
-same class of error recurring), turns out to be an *enterprise-grade value failure*, not just a
-mechanism downgrade. So the upgrade is partly additive (new groups) and partly a **re-frame** of layers
-already present in the consumer model.
+Each requirement has an external anchor where established work exists. The anchors include standards, regulations, supervisory guidance, research instruments, and bodies of practice.
 
-Source-method note: synthesised from a deep-research pass over 9 enterprise dimensions, each checked
-against named external standards. The consumer model was treated as useful signal, not gospel. This
-file is the synthesis; it is backed by a per-dimension research corpus (held separately) recording the
-named clauses, articles, metrics, and gaps for all nine. **Currency note:** US **SR 11-7 was superseded
-by SR 26-2** (17 Apr 2026), which *excludes* GenAI/agentic AI, so the harder current bar for a
-UK-regulated brain is **FCA-PRA SS1/23** (no carve-out) + ISO/IEC 42001; EU AI Act high-risk
-obligations apply from **2 Aug 2026** (fines to 7%/3% of turnover). Where the tables below say
-"SR 11-7", read "SS1/23 + ISO 42001 (SR 26-2 = US lens)".
+Use the version of each regulation or supervisory instrument that applies to the deployment date and jurisdiction. Official sources include [SR 26-2](https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm), the [EU AI Act](https://eur-lex.europa.eu/eli/reg/2024/1689/oj), and its [amending regulation](https://eur-lex.europa.eu/eli/reg/2026/1744/oj).
 
-## 1. The structure: seven questions, 41 dimensions
+## Scoring
 
-Each dimension carries a **headline criterion** and an **anchor standard**. Maturity is scored on a band
-scale (Absent 0 / Emerging 1 / Partial 2 / Strong 3 / Exemplary 4), where *Strong requires the
-mechanism verified to RUN*, not merely designed. (An honest per-capability built/partial/planned
-self-assessment of one reference instance against these dimensions is the
-[solution example](../solution-example-our-stack.md).)
+Score each requirement on the following scale:
 
-### A. Is it a brain? *(functional core: the consumer model's first half)*
-| Dim | Headline criterion | Anchor |
+| Score | Meaning |
+|---|---|
+| 0 Absent | The mechanism and its evidence are missing. |
+| 1 Emerging | A design or partial mechanism exists. |
+| 2 Partial | The mechanism works for part of the required scope. |
+| 3 Strong | The mechanism works across the required scope and has current exercise evidence. |
+| 4 Exemplary | The mechanism has sustained evidence, measured improvement, and independent challenge. |
+
+A design alone can reach Emerging. Strong requires evidence from a running system or a representative exercise.
+
+The identifiers L1-L8 show the matching layer in the common company brain rubric. L0 belongs to the architecture and names the approved knowledge source of truth.
+
+## A. Core function
+
+| Requirement | Criterion | Anchor |
 |---|---|---|
-| A1 Capture (L1) | Raw material systematically *enters*; breadth, not scattered | DAMA-DMBOK |
-| A2 Retrieval (L2) | Pulls the *right* context, measured (single-file & multi-hop), not index size | IR precision/recall; RAGAS |
+| A1 Capture (L1) | Source material enters through an enumerable process and carries provenance from capture. | DAMA-DMBOK |
+| A2 Retrieval (L2) | Fixed tests measure retrieval of the right evidence for direct and multi-step questions. | Information retrieval precision and recall; RAGAS |
+| A3 Structural understanding | Repeated evidence produces stable algorithmic structure. Narration stays within cited evidence. Serving status controls use. | ISO 30401:2018; NIST AI RMF MEASURE |
+| A4 Enterprise integration and mastering | Governed source reach produces one enterprise entity view, conformant products, current paths, and queryable lineage. | DAMA-DMBOK2 Revised; ISO 8000-61:2016 |
 
-### B. Is it trustworthy? *(the auditable core, the moat; survives strict audit)*
-| Dim | Headline criterion | Anchor |
+## B. Trust
+
+| Requirement | Criterion | Anchor |
 |---|---|---|
-| B1 Source truth (L3) | A conflict is resolved by a trust rule; recency/authority wins | ISO 8000 |
-| B2 Contradiction safety (L7) | A conflicting write cannot reach the store silently; held for a human regardless of confidence | (extension; NIST AI RMF "Valid & Reliable") |
-| B3 Provenance in artefact (L8) | Reconstruct origin + override from the *record itself*, not a side log | W3C PROV; MITRE ATLAS provenance |
-| B4 Deterministic-claim integrity | State the system acts on or presents as true is a deterministic function of observable events, not an LLM-authored claim; an LLM owning an acted-on claim is a graded defect (the [deterministic spine](../logical-reference-architecture.md)) | (extension; neuro-symbolic / deterministic-spine; NIST AI RMF "Valid & Reliable") |
+| B1 Source truth (L3) | Declared authority and recency rules resolve conflicting facts. | ISO 8000 |
+| B2 Contradiction safety (L7) | A conflicting claim enters a human review queue with the current claim preserved. | NIST AI RMF Valid and Reliable |
+| B3 Provenance in the record (L8) | The record carries enough origin and override data to reconstruct its history. | W3C PROV; MITRE ATLAS |
+| B4 Deterministic claim integrity | Rules over observable events produce the state used or presented as true. | Neuro-symbolic systems; NIST AI RMF Valid and Reliable; deterministic spine |
 
-### C. Is it resilient? *(does it STAY a brain under failure; MISSING from the rubric)*
-| Dim | Headline criterion | Anchor |
+## C. Resilience
+
+| Requirement | Criterion | Anchor |
 |---|---|---|
-| C1 Availability & SLO | Availability SLI/SLO for retrieval + write-back, with an error budget | **Google SRE** |
-| C2 Detection (MTTD) | MTTD ≤ 7d for a silent dependency break (≤24h autonomous) | **NIST AI RMF MEASURE 2.7** |
-| C3 Recovery (RTO/RPO) | Timed, dated rebuild-from-source drill + post-rebuild eval score | **AWS Well-Architected** REL13 |
-| C4 Quality-drift tripwire | Golden-set re-run alerts when retrieval quality drops vs rolling baseline (the "day-9" mode) | LLM-observability drift detection |
-| C5 Graceful degradation | Named modes + triggers; ≥1 built+tested (e.g. keyword fallback when the embedder is down, labelled) | NIST AI RMF MEASURE 2.6; Chaos Eng |
-| C6 Fault-injection / Game Day | ≥1 dated drill breaking a dependency vs a steady-state hypothesis | **Principles of Chaos** |
+| C1 Availability and service objectives | Retrieval and write paths have service indicators, objectives, error budgets, and breach action. | Google SRE |
+| C2 Failure detection | Every critical dependency has a measured maximum detection time. | NIST AI RMF MEASURE 2.7 |
+| C3 Recovery | A timed recovery exercise meets declared recovery time and recovery point objectives. Post-recovery evaluation confirms service quality. | AWS Well-Architected REL13 |
+| C4 Quality drift | A fixed evaluation set detects regression against a rolling baseline. | Model observability practice |
+| C5 Degraded service | Declared service modes have triggers, allowed functions, user messages, and exit conditions. At least one mode has exercise evidence. | NIST AI RMF MEASURE 2.6; chaos engineering |
+| C6 Failure rehearsal | A dated exercise breaks a dependency and tests a stated steady state. | Principles of Chaos |
+| C7 Durable agent execution | Work resumes after process loss with approvals and effect settlement intact. Recovery follows the effect's idempotency class. | Google SRE recovery practice; NIST SP 800-53 AU |
 
-### D. Is it secure under attack? *(adversarial robustness; MISSING; Permissions ≠ attack-resistance)*
-| Dim | Headline criterion | Anchor |
+## D. Security
+
+| Requirement | Criterion | Anchor |
 |---|---|---|
-| D1 Permissions / access (L4) | Access follows role/workflow/risk | ISO 27001 access-control |
-| D2 Prompt-injection ASR | Measured indirect-injection Attack Success Rate on tool paths; <5% guarded | **OWASP LLM01**; AgentDojo; MITRE ATLAS |
-| D3 Retrieval/memory poisoning | Poison-corruption rate on the golden set, trended | **OWASP LLM04/08**; PoisonedRAG |
-| D4 Secrets / PII egress | Runtime egress scan of retrieval + write-back + tool payloads; target 0 | OWASP LLM02/07 |
-| D5 Supply-chain attestation | % of skills/MCP servers/deps with provenance + signature/pin | OWASP LLM03; MITRE ATLAS |
-| D6 Excessive-agency / tool-abuse | Least-privilege + confused-deputy test per tool | OWASP LLM06/09 |
+| D1 Access control (L4) | Access follows verified identity, role, workflow, purpose, and risk. | ISO/IEC 27001 access control |
+| D2 Prompt injection | Tool paths have a measured attack success rate under indirect injection tests. | OWASP LLM01; AgentDojo; MITRE ATLAS |
+| D3 Retrieval and memory poisoning | Fixed tests measure the effect of planted material on retrieval and answers. | OWASP LLM04 and LLM08; PoisonedRAG |
+| D4 Sensitive data egress | Runtime checks cover retrieved content, write-back, files, messages, and tool payloads. | OWASP LLM02 and LLM07 |
+| D5 Supply chain | Loaded skills, tool servers, models, and dependencies carry verified provenance and a signature or pin. | OWASP LLM03; MITRE ATLAS |
+| D6 Tool agency | Each tool uses scoped authority and passes a confused deputy test. | OWASP LLM06 |
 
-### E. Is it compliant + governed? *(the regulator's view; MISSING; for a regulated deployment this is the gate)*
-| Dim | Headline criterion | Anchor |
+## E. Governance and compliance
+
+| Requirement | Criterion | Anchor |
 |---|---|---|
-| E1 AI management system | Monitoring run as an audited Plan-Do-Check-Act loop with breach-triggered corrective action | **ISO/IEC 42001:2023** Cl.9→10 |
-| E2 Human oversight | A named human in/on the loop at decisions that move money or expose regulated data | **EU AI Act Art. 14**; NIST GOVERN |
-| E3 Audit-log completeness & reconstructability | % of decision-class answers fully reconstructable (query→chunk-versions→model/prompt→output→override) from records alone | **EU AI Act Art. 12**; SR 11-7 |
-| E4 Right-to-erasure & retention | Erase a subject from source+FTS+vector+graph+caches within SLA, with proof; retention class + TTL enforced | **GDPR Art. 17 + Art. 5** |
-| E5 Model inventory & independent validation | On a model inventory; dated independent validation; ongoing monitoring | **FCA-PRA SS1/23** + ISO 42001 (SR 26-2 = US lens, GenAI-excluded) |
-| E6 Residency & operational resilience | Approved-jurisdiction processing; ICT incident classification/reporting; LLM-provider concentration risk | **DORA** (Reg. 2022/2554); GDPR Art. 30 |
-| E7 Red-team evidence cadence | Scheduled adversarial run mapped to OWASP Top-10, logged + fed back | NIST AI RMF MEASURE 2.7 |
-| E8 Cross-user promotion privacy boundary | Cross-user/cross-domain promotion (the experience flywheel's scale-3) carries only distilled, de-identified, consented signal; residual-identifier leak at the promotion boundary = 0; child-facing/regulated raises it to a hard human gate | **GDPR Art. 5/25** (minimisation, privacy-by-design); **UK Children's Code** |
+| E1 AI management system | Objectives, monitoring, review, and corrective action form an audited management loop. | ISO/IEC 42001:2023 clauses 9 and 10 |
+| E2 Human oversight | Named people make the decisions required for money movement, protected data, claim admission, and irreversible action. | EU AI Act Article 14; NIST AI RMF GOVERN |
+| E3 Decision reconstruction | Records reconstruct the request, evidence versions, policy, model, prompt, output, release, and override. | EU AI Act Article 12; SR 26-2; PRA SS1/23 |
+| E4 Erasure and retention | Subject data is removed from authoritative stores, indexes, graphs, caches, release payloads, and exports within the stated service objective. | GDPR Articles 5 and 17 |
+| E5 Model inventory and validation | Models have inventory records, independent validation, use conditions, monitoring, and revalidation triggers. | PRA SS1/23; ISO/IEC 42001 |
+| E6 Residency and operational resilience | Processing follows approved jurisdictions. Incidents follow the required classification and reporting process. Provider concentration has tested controls. | DORA; GDPR Article 30 |
+| E7 Adversarial review | Scheduled exercises map to recognised attack classes, record findings, and track corrective action. | NIST AI RMF MEASURE 2.7 |
+| E8 Cross-user promotion | Shared learning uses distilled, de-identified, consented data. Tests measure residual identifiers at the promotion boundary. | GDPR Articles 5 and 25; UK Children's Code |
+| E9 Information release | Every external answer uses one release path after classification and the required verdicts. The release record exists before output begins. | NIST SP 800-207; GDPR Articles 5, 6, and 25 |
 
-### F. Does it add value + get used? *(value, adoption, trust: where most enterprise GenAI fails to deliver measurable value)*
-| Dim | Headline criterion | Anchor |
+## F. Value and use
+
+| Requirement | Criterion | Anchor |
 |---|---|---|
-| F1 Outcome / decision-quality | Measured *delta* on real decisions the brain informed vs a no-brain baseline; zero high-confidence-wrong on audit-relevant queries | DAMA "data value"; benefits-realisation |
-| F2 Adoption / active-use | % of real work sessions that invoked the brain vs bypassed it; abandoned-query rate | KM "abandoned search"; ADKAR Reinforcement |
-| F3 Appropriate reliance & trust calibration | On seeded correct/wrong outputs: automation-bias rate (wrong accepted) + algorithm-aversion rate (right rejected); reported-trust vs measured-reliability gap | **EU AI Act Art. 14(4)(b)/(d)**; Lee & See; TPA/TAI |
-| F4 User-facing explainability | A *non-expert* can tell from the answer alone whether to act on it (distinct from auditor provenance) | EU AI Act Art. 13; HCI |
-| F5 Feedback-to-improvement latency & flywheel health | Time/builds between a correction captured and it *changing a later answer*; **and** the experience flywheel's continuous health (capture completeness · promotion latency · eval-gate calibration · error-loop guard, graded *continuously*, not periodically) | (operationalises the enterprise-AI learning gap; the experience flywheel) |
+| F1 Decision quality | Outcome measures compare assisted decisions with a suitable baseline. Audit-relevant tests track high-confidence errors. | DAMA data value; benefits realisation |
+| F2 Adoption | Measures cover active use, bypass, abandonment, repeat use, and task completion. | Knowledge management abandoned search; ADKAR Reinforcement |
+| F3 Appropriate reliance | Seeded tests measure acceptance of wrong answers and rejection of correct answers. Reported trust is compared with observed reliability. | EU AI Act Article 14; Lee and See; trust instruments |
+| F4 User explanation | A person can identify the evidence, confidence, limits, and conditions that would change the answer. | EU AI Act Article 13; human-computer interaction |
+| F5 Feedback and improvement | Measures track capture, promotion time, gate accuracy, repeated errors, and the time until a correction changes a later answer. | Experience flywheel |
 
-### G. Can we run it at scale? *(operational viability: cost, observability, scale, lifecycle)*
-| Dim | Headline criterion | Anchor |
+## G. Operation at scale
+
+| Requirement | Criterion | Anchor |
 |---|---|---|
-| G1 Cost / unit economics | Cost-per-answer (tokens in+out, $) reportable; cost-per-outcome trended | **FinOps for AI** + FOCUS |
-| G2 Budget enforcement (write-time) | Token/API/compute budget enforced *before* the model call; named breach action | FinOps |
-| G3 Latency SLO (percentile) | TTFT p95 + E2EL p95 declared + measured (not a mean); goodput | NVIDIA NIM / SRE |
-| G4 Cache effectiveness | Semantic/prefix cache hit-rate; cost/latency saved | GPT-Semantic-Cache |
-| G5 Sustainability (carbon) | SCI-style energy/carbon per answer (or token→energy proxy) | **ISO/IEC 21031:2024 (SCI)** |
-| G6 Observability (4 pillars) | Logs + metrics + distributed traces + **eval-in-production**; OTel-GenAI schema; SLOs alerted | **OpenTelemetry GenAI**; Google SRE; LLM-observability |
-| G7 Scalability & isolation | Cross-tenant leak rate **0** (isolation by construction, non-bypassable); retrieval-quality degradation curve at 1×/10×/100×; p95 at N concurrent | data-mesh federated governance; SOC 2 CC6; ISO 27001 A.8 |
-| G8 Lifecycle & freshness | Corpus-wide Freshness Score ≥85 + Coverage Drift + Stale-Retrieval-Rate, trended | **ISO 30401**; freshness scoring; DAMA Currency |
-| G9 Contradiction *stock* | Full-corpus contradiction sweep; latent-contradiction count flat/falling | (a write-time gate extended periodic) |
-| G10 Ontology conformance & knowledge-debt | Post-schema-change conformance %; (stale+contradictory+non-conforming+orphaned)/total <20% | "Consistent Evolution of OWL"; TDR discipline |
+| G1 Unit cost | Cost per answer and cost per outcome are available by service and use case. | FinOps for AI; FOCUS |
+| G2 Budget control | Token, API, and compute budgets are checked before work begins. Each breach has a declared action. | FinOps |
+| G3 Latency | Time to first output and complete response use percentile objectives. Useful throughput is also measured. | Google SRE latency practice; inference benchmarking |
+| G4 Cache value | Caches report hit rate, cost saved, latency saved, and invalidation accuracy. | Semantic caching research |
+| G5 Sustainability | Energy or carbon per answer is measured directly or through a declared proxy. | ISO/IEC 21031:2024 |
+| G6 Observability | Logs, metrics, traces, and live answer evaluation share identifiers and alert against service objectives. | OpenTelemetry GenAI; Google SRE |
+| G7 Scale and isolation | Tests cover cross-boundary leakage, retrieval quality under growth, and percentile latency under concurrency. | Data mesh governance; SOC 2 CC6; ISO/IEC 27001 Annex A.8 |
+| G8 Knowledge freshness | Measures cover the whole corpus, materiality-based age limits, and stale retrieval. | ISO 30401; DAMA Currency |
+| G9 Contradiction stock | A full corpus sweep measures latent contradictions and tracks their trend. | Deterministic spine extension |
+| G10 Ontology conformance and knowledge debt | Schema changes have impact measures, migration evidence, and a current view of stale, conflicting, invalid, and orphaned knowledge. | Consistent Evolution of OWL; technical debt register practice |
 
-**Headline.** Of the 41 enterprise-grade criteria, the consumer "company brain" model scores only Groups
-A and B, and even there, the trustworthy core (Group B) is the layer most deployments *forget* and a
-regulator asks about *first*. The five groups the popular instrument barely scores (**C resilient · D
-secure · E compliant · F valuable · G at-scale**) are where an enterprise brain actually stands or falls in production.
-A typical maturity profile builds a trustworthy retrieval core and has barely begun on resilient,
-secure, compliant, valuable, and at-scale.
+## Anchor terms
 
-## 2. The pattern: where brains are typically strong vs blind
+### Standards and specifications
 
-Across the dimensions, the same shape recurs and is worth naming because it is the inverse of where
-attention usually goes:
+- **ISO 30401:2018** sets requirements for knowledge management systems.
+- **ISO 8000** covers data quality. ISO 8000-61:2016 defines a data quality management process model.
+- **ISO/IEC 42001:2023** defines an AI management system.
+- **ISO/IEC 27001:2022** defines an information security management system and its controls.
+- **ISO/IEC 21031:2024** defines Software Carbon Intensity.
+- **W3C PROV** defines a data model for provenance.
+- **OpenTelemetry GenAI** defines telemetry conventions for generative AI systems.
+- **FOCUS** defines a common format for cloud cost and usage data.
+- **SOC 2 CC6** covers logical and physical access controls.
 
-- **Typically strong (and under-credited):** the functional core (capture/retrieval) and, where it is
-  built deliberately, the **trustworthy core** (source-truth resolution, a non-bypassable
-  contradiction gate, provenance reconstructable from the record itself). These are precisely the
-  layers the consumer model under-weights and a regulator weights first.
-- **Typically blind (and over-credited):** the entire operational surface. **Resilience** (no SLO, no
-  measured RTO, no drift tripwire, no degradation path, no Game Day) is usually unscored, a silent
-  partial-failure mode with no alert. **Security** (indirect-injection ASR, retrieval poisoning,
-  secrets egress) is usually *unmeasured*, and against published unguarded agentic attack-success
-  baselines, "unknown" is the riskiest state for a tool-wired brain. **Compliance** (right-to-erasure,
-  audit-log *coverage*, model inventory + independent validation, residency/DORA) is usually
-  unaddressed. **Value + adoption** is the highest-leverage blind spot. Most instruments score the
-  mechanism, not the outcome: nothing scores whether an answer was *good, fast, used, or changed a decision*,
-  and without a retrieval-access log an organisation cannot even tell how often the brain is used.
-  **Scale** (cross-tenant isolation, concurrency, growth-degradation) and **observability**
-  (system-wide metrics/traces/alerting, and the fourth pillar, eval-in-production) round out the blind
-  half.
+### Regulation and supervisory guidance
 
-The single sharpest instance of the value blind spot is **feedback that is documentary, not adaptive**:
-a captured correction that does not change a later answer. This is the literal "learning gap" that
-separates the small fraction of enterprise GenAI that delivers value from the majority that does not.
-These are not missing dimensions. They are **existing layers (Feedback and Evaluation) failing their
-enterprise bar.**
+- **EU AI Act** means Regulation (EU) 2024/1689 and applicable amendments.
+- **GDPR** means Regulation (EU) 2016/679.
+- **DORA** means Regulation (EU) 2022/2554.
+- **UK Children's Code** means the Age Appropriate Design Code from the Information Commissioner's Office.
+- **PRA SS1/23** gives UK supervisory expectations for model risk management in banks.
+- **SR 26-2** gives current US Federal Reserve guidance on model risk management. It supersedes SR 11-7.
 
-## 3. Build shortlist, sequenced by leverage
+### Frameworks and bodies of practice
 
-A generic leverage order for closing the gap. The first two dominate everything else.
+- **NIST AI RMF** covers GOVERN, MAP, MEASURE, and MANAGE activities for AI risk.
+- **NIST SP 800-207** defines Zero Trust Architecture.
+- **NIST SP 800-53** defines security and privacy controls. Its AU family covers audit and accountability.
+- **OWASP Top 10 for LLM Applications** lists common risks in model-based applications.
+- **MITRE ATLAS** records adversary tactics and techniques for AI systems.
+- **AWS Well-Architected REL13** covers disaster recovery planning.
+- **Google SRE** supplies service objectives, error budgets, recovery, and reliability practice.
+- **Principles of Chaos** defines the core practice for controlled failure experiments.
+- **FinOps** supplies methods for cost allocation, budgeting, and unit economics.
+- **DAMA-DMBOK** supplies established data management concepts and controls.
+- **Information retrieval precision and recall** measure result relevance and coverage.
+- **RAGAS** provides measures for retrieval and answer evaluation.
+- **AgentDojo** provides prompt injection tests for tool-using agents.
+- **PoisonedRAG** describes retrieval corpus poisoning attacks.
+- **ADKAR** supplies a change model whose final element is reinforcement.
+- **Lee and See** defines appropriate reliance on automation.
 
-1. **Green the safety contract.** A red test in the safety spine (the contradiction/write gate)
-   invalidates every Group-B "Strong". Repair it first. *Hours.*
-2. **Feedback activation (highest leverage overall).** Make captured corrections *retrievable and
-   surfaced at the point of work*. Converts the brain from **documentary to adaptive**: the enterprise
-   gate between "files corrections" and "wakes up smarter," and the literal fix for the learning gap
-   (F5).
-3. **The Evaluation forcing function (E1 / C2 / G6).** Schedule the macro maturity test + micro
-   retrieval baseline + a liveness healthcheck as *enforced* cadence and prove the schedule fires.
-   Without it every layer below is unverified, *and* it makes MTTD ≤7d true rather than designed.
-4. **Extend the rubric to the missing groups:** add scored layers for **Resilience**, **Security**,
-   **Compliance & governance**, **Value & adoption**, and **Scale & operability** (cost +
-   observability + isolation + lifecycle), each Absent→Exemplary, plus acceptance questions that each
-   use the rubric's own *"if nothing is ever refused/stopped/costed/pruned/used, the gate is
-   decoration"* logic.
-5. **Two cheapest unlocks, in parallel:**
-   - **Retrieval-access log:** closes F2 (adoption), F1/F5 (value/latency), and turns usage from
-     approximation to fact. The single highest-leverage primitive in Groups F/G.
-   - **A `last_verified` field + criticality tier:** unlocks every freshness metric (G8-G10).
-6. **An SLO sheet:** availability SLI/SLO for retrieval + write-back, RTO/RPO, error-budget breach
-   policy. Makes Group-C targets measurable instead of implicit.
-7. **A drift tripwire + a degradation breaker:** the day-9 alarm + graceful degradation (C4+C5
-   evidence).
-8. **Stand up an adversarial harness:** the security counterpart to the retrieval golden set:
-   injection + poisoning + egress + system-prompt-extraction against the live stack; seed from
-   AgentDojo + PoisonedRAG; reuse the retrieval golden set as the poisoning target; record a dated
-   baseline. Adversarially re-test the contradiction gate (poison, not just honest conflict).
-9. **A Decision-Quality set** (value analogue of the retrieval golden set): real past decisions with
-   later-verified answers; score correctness + time-to-answer + high-confidence-wrong count. The
-   instrument Group F entirely lacks, with a North-Star ("trusted provenanced answers that
-   changed/confirmed a real decision per week"; counter-metric: high-confidence-wrong rate).
-10. **Quarterly Game Day (C6) + full-corpus contradiction sweep (G9) + supply-chain attestation
-    inventory (D5)**: the evidence-generating drills; tie to one quarterly review (forcing functions).
-11. **A compliance register for any deployed instance:** model inventory + independent validation,
-    DPIA/AIIA, retention classes, residency, the right-to-erasure design fork. Bites the moment a
-    regulated deployment is real; declare now.
-12. **Cost + carbon + p95 instrumentation** (G1/G3/G5). Lowest urgency at small scale; a hard
-    compliance/ESG gap the moment the brain is multi-tenant or reported.
+The deterministic spine and the experience flywheel are defined in the [Lexikon](https://antikas.io/writing/lexikon/) and applied in the [logical reference architecture](../logical-reference-architecture.md).
 
-## 4. n=1 vs enterprise: the calibration rule *(so an instance is neither over-credited nor over-penalised)*
+## Detailed evidence and hard failures
 
-Several dimensions are **genuinely not-yet-needed at n=1** and should be scored **"structurally
-deferred"** (declare the field/target now, defer the enforcement) rather than "Absent (failing)":
+Some requirements depend on the form of their evidence. The sections below define that evidence and the conditions that fail the requirement.
 
-- **D1 Permissions / G7 isolation / E2 read-path oversight / cost-allocation showback (G1):** single-user.
-  *The field/gate must exist now so the multi-tenant case is not a retrofit*, but grading them
-  "Absent-failing" over-penalises, "Strong" over-credits. Extend the stance the rubric
-  already takes for Permissions explicitly.
-- **G5 Sustainability / G3 latency-percentiles:** at n=1 one human queries interactively and
-  infrequently, real enterprise gates, premature here. Keep in the rubric so an enterprise instance
-  cannot skip them.
-- **C1 Availability SLO / C3 RTO:** declare the *targets* now (cheap discipline); the *consequence*
-  (unseen consumers deciding on a brain they cannot rebuild) bites at scale, not n=1.
+### A3 Structural understanding
 
-**Conversely, dimensions where n=1 gets NO pass** (they bite a single confident author serving a single
-confident wrong answer):
+| Evidence | Hard failures |
+|---|---|
+| Fixed multi-record fixtures; stable signatures and groups on repeated runs; complete evidence links; scope isolation tests; entailment checks; sampled human labels; serving status tests; erasure and rebuild tests. | A model chooses group membership; narration adds an unsupported claim; identity changes on stable evidence; scope data leaks; held or retired observations serve; erased material returns after rebuild. |
 
-- **C2 Detection · C4 drift · G8/G9 freshness + contradiction-stock · D2/D3 injection + poisoning ·
-  F1/F2/F5 value + adoption + adaptive-feedback.** The day-9 silent decay, a long silent-outage
-  detection gap, the documentary-not-adaptive feedback failure, and a poisoned web page the brain will
-  retrieve are **live risks even in a single-user instance**, which can feel corpus drift and suffer a
-  silent outage exactly as a larger one can. Grading these "deferred because n=1" is the mis-grade to
-  avoid.
+Consequential use also requires a persisted oversight verdict. Recalculation and ordinary serving use the algorithmic and serving status controls.
 
-**The clean rule:** *failures that need many consumers to bite* → structurally deferred (declare the
-field/target, defer enforcement). *Failures that bite a single confident author* → fully in scope at
-n=1, graded without mercy.
+### A4 Enterprise integration and mastering
 
-## 5. Strategic read
+| Evidence | Hard failures |
+|---|---|
+| Shared entity fixtures across sources and unit scopes; realistic duplicates; review queue volume; field survivorship records; build and query lineage; materialisation stamps; reconciliation; stale refusal; source invalidation; contract promotion; live conformance. | Duplicate unit masters; automatic uncertain merges; missing review volume; operational facts in recall; missing lineage; reconstructed lineage; stale service; active service after source invalidation; draft contracts driving consequential work. |
 
-The honest read is twofold. (1) The genuine strength of a well-built brain is the **trustworthy core
-(Group B)**, exactly the layers the market forgets and a regulator asks about first; lead with it. (2)
-The honest weakness is everything operational (resilience, security, compliance, value, scale), which
-is the **roadmap, not an embarrassment**. For any regulated deployment, Groups **E (compliant)** and **C
-(resilient)** are the gate between "interesting tool" and "auditable enterprise system."
+The evidence must cover source allocation, entity resolution, survivorship, lineage, product generation, freshness, reconciliation, and contract promotion.
 
-The single highest-leverage move is **Feedback activation** (item 2 above). It is simultaneously the
-deepest value gap (F5) and the missing fourth observability pillar (G6 eval-in-production). One build
-closes both.
+### C7 Durable agent execution
 
-## Architecture response: the eval ⇄ architecture pair
+| Evidence | Hard failures |
+|---|---|
+| Task ordering; intent persisted before effects; results persisted before output; durable streamed deltas; approval and settlement recovery; idempotency fixtures; uncertain effect reconciliation; journal and compaction comparison; erasure and tombstone propagation. | Output precedes its record; approval state exists only in process memory; uncertain effects repeat without inspection; compaction replaces the journal; replay claims exact model output; erased content returns through recovery or export. |
 
-This framework is the **requirements specification** for the enterprise brain; its answer is the
-[Enterprise Brain Reference Architecture](../INDEX.md) (EBRA), a capability-based logical reference
-architecture whose 43 capabilities each satisfy ≥1 dimension here, proven two-way by the cross-walk in
-[logical-reference-architecture.md](../logical-reference-architecture.md) §3. The two are a **permanent
-pair**: this file is EBRA's requirements; EBRA is this eval's response artefact. Extending either
-obliges revisiting the other, because the cross-walk is the drift detector. (The seven groups and 41 dimensions
-here are the requirement axis; EBRA's capability map is the response axis.) The three most recent
-additions (**B4** deterministic-claim integrity, **E8** cross-user promotion privacy, and flywheel
-health folded into **F5**) were added in lockstep with EBRA's deterministic-spine and experience-flywheel
-fold; the broader operational-group rubric extension (scored layers for Resilience, Security, Compliance,
-Value, and Scale) is the next increment.
+### E9 Information release
 
-## Disposition
+| Evidence | Hard failures |
+|---|---|
+| Surface registry; classification cases; access, purpose, lawful basis, minimisation, and query policy tests; relational and non-relational reads; persist-before-stream tests; refusal records; unknown surface tests; expiry, erasure, recovery, and export tests. | External output bypasses release; output begins before its record; a protected release lacks a required verdict; expired authority passes; unknown surfaces receive output; release and workflow records disagree; erased content returns. |
 
-Drives the operational-group extension of the maturity rubric (scored layers + acceptance questions
-Q6-Q10). It does not duplicate the per-dimension research briefs; it positions them in the seven-group
-model and supplies the n=1-vs-enterprise calibration the separate briefs could not. Re-run the maturity
-test under the extended rubric at each phase boundary; the value is the per-dimension band **delta** over
-time.
+## Scale calibration
+
+Some requirements need several consumers or an enterprise service level before their full enforcement can be tested. The contract and target still need to exist from the first deployment.
+
+The following requirements can defer full enforcement while the system has one consumer:
+
+- D1 live access separation and G7 cross-user isolation.
+- E2 oversight for ordinary read decisions.
+- G1 cost allocation across teams.
+- G3 percentile latency and G5 sustainability as service gates.
+- C1 availability objectives and the timing target in C3 recovery.
+
+The following requirements apply to the first consumer:
+
+- Failure detection, quality drift, freshness, and contradiction stock.
+- Prompt injection, retrieval poisoning, and sensitive data egress.
+- Structural understanding, durable work, and governed release.
+- Decision quality, adoption, reliance, explanation, and feedback.
+- Entity mastering once the system reaches a second source.
+
+Record a deferred requirement with its contract, target, trigger for enforcement, and current evidence. Score the mechanism that can be exercised at the current size.
+
+## Architecture mapping
+
+This framework owns the requirements. The [logical reference architecture](../logical-reference-architecture.md) owns the capability response.
+
+The cross-walk in the logical architecture gives each requirement one owning capability and records any supporting capabilities. A change to either side requires a cross-walk check.

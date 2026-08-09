@@ -1,26 +1,204 @@
-# EBRA — at-a-glance summary diagram. Canonical d2 (rendered to SVG). Public-generic.
-direction: right
+# The Enterprise Brain at a glance.
+direction: down
 
-brain: "The enterprise brain" {
-  style.fill: "#eef2ff"
-  q1: "Is it a brain?\ncapture · retrieve · compose"
-  q2: "Is it trustworthy?\n(the moat)\nsource-of-truth · contradiction-safe\nwrite · provenance-in-record" { style.fill: "#ecfdf5" }
-  q3: "Can we run it?\nresilient · secure · compliant\nvaluable · at scale"
-  q1 -> q2 -> q3
+style.fill: "#faf7f2"
+
+classes: {
+  spine-band: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 12
+      font-size: 16
+      bold: true
+    }
+  }
+  spine-col: {
+    style: {
+      fill: "#2c3b33"
+      stroke: "#4b5e53"
+      font-color: "#f2ede4"
+      border-radius: 9
+      font-size: 12
+    }
+  }
+  band: {
+    style: {
+      fill: "#f4efe6"
+      stroke: "#c8bfad"
+      border-radius: 12
+      font-color: "#3a3529"
+      font-size: 15
+      bold: true
+    }
+  }
+  knowledge: {
+    style: {
+      fill: "#e7efe8"
+      stroke: "#4a7b5e"
+      border-radius: 9
+      font-color: "#22352a"
+      font-size: 13
+    }
+  }
+  operational: {
+    style: {
+      fill: "#e9edf3"
+      stroke: "#5b6e8c"
+      border-radius: 9
+      font-color: "#26313f"
+      font-size: 13
+    }
+  }
+  control: {
+    style: {
+      fill: "#efe8dc"
+      stroke: "#9a8768"
+      border-radius: 9
+      font-color: "#3a3123"
+      font-size: 13
+    }
+  }
+  plain: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#c9c2b4"
+      border-radius: 9
+      font-color: "#33312c"
+      font-size: 13
+    }
+  }
+  gate: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#a8452c"
+      stroke-width: 2
+      border-radius: 14
+      font-color: "#3a2118"
+      font-size: 14
+    }
+  }
+  badge: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 8
+      font-size: 11
+    }
+  }
+  k-path: {
+    style: {
+      stroke: "#4a7b5e"
+      stroke-width: 2
+      font-color: "#2e4a3a"
+      font-size: 12
+    }
+  }
+  o-path: {
+    style: {
+      stroke: "#5b6e8c"
+      stroke-width: 2
+      stroke-dash: 4
+      font-color: "#3b4a60"
+      font-size: 12
+    }
+  }
+  c-path: {
+    style: {
+      stroke: "#9a8768"
+      stroke-width: 1
+      stroke-dash: 2
+      font-color: "#6b5c44"
+      font-size: 12
+    }
+  }
+  gate-path: {
+    style: {
+      stroke: "#a8452c"
+      stroke-width: 2
+      font-color: "#7d3320"
+      font-size: 12
+    }
+  }
+  foot: {
+    shape: text
+    style: {
+      font-size: 12
+      font-color: "#5c574d"
+    }
+  }
 }
 
-thesis: "The two-tier engine\nfrontier orchestrator + a hybrid router +\nan inventory of specialists grown on your own data" { style.fill: "#fef9c3" }
+spine: "DETERMINISTIC SPINE\nRules over recorded evidence decide what the system may store or present as true." {
+  class: spine-band
+  grid-columns: 6
+  grid-gap: 18
+  adm: "Claim admission\nC-G3.2\napproves entry into L0" { class: spine-col }
+  lin: "Lineage in the record\nC-G3.3\nsource to figure, queryable" { class: spine-col }
+  ovs: "Human oversight\nC-G5.2\nrecords the human verdict" { class: spine-col }
+  jrn: "Durable work journal\nC-X3\nintent before effect" { class: spine-col }
+  rel: "Governed release\nC-G4.8\ncontrols external answers" { class: spine-col }
+  era: "Erasure authority\nC-G5.4\nauthorises, holders execute" { class: spine-col }
+}
 
-flywheel: "The experience flywheel\nevery interaction is a learning event:\ncapture → distil → eval-gate → promote → improve\n— the moat made dynamic" { style.fill: "#ffedd5" }
+holds: "INFORMATION CLASSES" {
+  class: band
+  grid-columns: 4
+  grid-gap: 18
+  l0: "Knowledge source of truth (L0)\nthe confirmed semantic claims the brain\nmay act on as true" { class: knowledge }
+  opauth: "Operational source authority\nfacts that stay authoritative in the\nsystem that owns them" { class: operational }
+  ctrl: "Governed control state\nontology, policy, registries, decisions,\nverdicts, release and refusal records" { class: control }
+  derived: "Derived views\ngenerated from recorded sources" {
+    class: plain
+    grid-columns: 1
+    grid-gap: 10
+    kd: "Knowledge-derived, from L0\nindexes · clusters · observations · summaries" { class: knowledge }
+    od: "Operational-derived, from operational sources\nplus control state: mastered records,\nconsolidated insight, generated data products;\nstructurally outside recall" { class: operational }
+  }
+}
 
-spine: "The deterministic spine\nrecords as true only what a rule derives\nfrom observable evidence — no confabulated state" { style.fill: "#e0f2fe" }
+does: "REQUEST PATH" {
+  class: band
+  grid-columns: 5
+  grid-gap: 16
+  reach: "Reach the estate\ngovern source reach across the\nplanes, by materiality and\nsensitivity (C-G1.6)" { class: plain }
+  understand: "Remember and understand\nrecall returns evidence;\nobservations reveal structure\nover it (C-G2.3)" { class: knowledge }
+  routei: "Route the intent\nwhich governed evidence surface\ncan answer this? (C-G2.4)" { class: plain }
+  reason: "Choose the reasoning tier\na registered specialist or\nthe general model\n(C-X1 · C-X2)" { class: plain }
+  act: "Act durably\ntask-keyed journal, approval\nwaits and settlement that\nsurvive restart (C-X3)" { class: plain }
+  reach -> understand
+  understand -> routei
+  routei -> reason
+  reason -> act
+}
 
-portable: "Runs on any stack\nthe same logical layer realised on\nour stack / a Google-shaped / an Azure-Snowflake-shaped cloud\n— with zero changes to the architecture"
+release: "Governed release (C-G4.8)\nchecks access, minimisation, query policy, lawful basis and oversight\nrecords release or refusal before output" {
+  class: gate
+  spinebadge: "SPINE CONTROL · unregistered surfaces are refused" { class: badge }
+}
 
-measured: "Graded honestly\nevery capability scored against an\nevaluation framework — you can see exactly\nwhat is built and what is a roadmap"
+out: "The acting user, or a calling service" {
+  shape: oval
+  class: plain
+}
 
-thesis -> brain: "powers" { style.stroke-dash: 3 }
-flywheel -> brain: "improves with use" { style.stroke-dash: 3 }
-spine -> brain: "keeps state honest" { style.stroke-dash: 3 }
-brain -> portable: "is portable because it is capability-based" { style.stroke-dash: 3 }
-brain -> measured: "is measurable" { style.stroke-dash: 3 }
+topology: "TRUST BOUNDARIES AND EVALUATION" {
+  class: band
+  grid-columns: 2
+  grid-gap: 18
+  partition: "Trust boundaries define storage\nBusiness units use scope labels and share one enterprise entity master\n(C-G3.4). A sensitive domain uses its own store and index. The master\nreads a governed projection. Separate enterprises use separate storage\nand exchange governed projections." { class: plain }
+  judged: "Independent evaluation\nEach requirement has a named anchor and one owning capability.\nThe cross-walk records ownership, support and runtime primitives." { class: plain }
+}
+
+spine -> holds: "bounds what may be recorded as true" { class: gate-path }
+holds -> does: "the evidence a request is answered from" { class: k-path }
+does -> release: "every registered external answer" { class: gate-path }
+release -> out: "answer, trust signals, and the record of the decision" { class: gate-path }
+holds -> topology: "storage follows the boundary map" { class: c-path }
+
+legend: "Legend. Dark band: deterministic spine. Green: knowledge plane. Blue-grey: operational plane.\nSand: governed control state. Red rule: spine control." {
+  class: foot
+  near: bottom-center
+}

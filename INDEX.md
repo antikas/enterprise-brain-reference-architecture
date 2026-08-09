@@ -1,16 +1,13 @@
 ---
 name: "Enterprise Brain reference architecture: index"
-description: Index for the enterprise-brain reference architecture (EBRA v0.2). The README is the one-page landing (the summary and the at-a-glance diagram); the logical reference architecture is the tech-agnostic capability map, cross-walk, and three views; the solution-architecture example on our stack is built/planned honest; and the portability proof expresses the same logical layer on multiple stacks. Public-generic, tech-agnostic. Paired with the enterprise-brain evaluation framework (the requirements) it answers.
+description: Navigation for the Enterprise Brain reference architecture, its solution examples, diagrams, and evaluation framework.
 type: index
-created: 2026-06-03
-valid_from: 2026-06-03
 tags:
   - type/index
   - scope/architecture
   - topic/enterprise-brain
   - topic/reference-architecture
   - topic/capability-modelling
-  - topic/applied-ai-systems-thesis
 aliases:
   - Enterprise brain architecture index
   - EBRA index
@@ -18,20 +15,43 @@ aliases:
 
 # Enterprise Brain reference architecture
 
-The reference architecture for an **enterprise brain**: the institutional memory-and-reasoning system that captures an organisation's proprietary knowledge, finds and assembles the right context, resolves trust, reasons over it, and runs resiliently, securely, lawfully, valuably, and at scale.
+An **enterprise brain** gives people and software governed access to an organisation's knowledge. It captures knowledge, finds evidence, supports reasoning, and controls the work that follows.
 
-It is **tech-agnostic and public-generic**: capabilities, logical contracts, and quality attributes as classes, with no product, platform, vendor, or organisation named. It is paired with the **enterprise-brain evaluation framework** (the requirements specification it answers) via a cross-walk that proves two-way coverage.
+The architecture defines capabilities and contracts. It names the required behaviour and leaves product choices to the adopting organisation.
 
-Start with the **[README](README.md)** for the one-page landing (the summary and the at-a-glance diagram). The detailed artefacts follow.
+The **deterministic spine** sets the rule for truth. Rules over recorded evidence decide what the system may store or present as true. The [Lexikon](https://antikas.io/writing/lexikon/) defines this term and the other named concepts used in the material.
 
-## Artefacts
+Start with the [README](README.md). The [short article on antikas.io](https://antikas.io/writing/the-enterprise-brain/) gives a general introduction.
 
-| Artefact | What it is | Status |
+## Documents
+
+| Document | Purpose | Use it for |
 |---|---|---|
-| [logical-reference-architecture.md](logical-reference-architecture.md) | The logical reference architecture: eight architecture-native capability groups plus a cross-cutting reasoning-and-orchestration band (43 capabilities, each a logical contract carrying a determinism class), the experience-flywheel cross-cutting expression, the capability ↔ eval-dimension ↔ runtime-primitive cross-walk (41/41 two-way coverage), and the three views (capability map; logical component and flow with inline trust gates; the two-tier-thesis expression). | Available |
-| [solution-example-our-stack.md](solution-example-our-stack.md) (+ [.d2](diagrams/solution-example-our-stack.d2) / [.svg](diagrams/solution-example-our-stack.svg)) | The concrete **solution-architecture example**: all 43 logical capabilities realised on a named-technology stack (koine-memory, markdown SSOT, git, bge-m3, BM25, the agentic-build-cycle, the eval tiers, Restate planned), honest about what is built versus planned and reconciled cell-for-cell against the verified maturity scorecard; the worked proof the logical layer is realisable, the bridge to the eval scorecard, and the n=1 instance. Living d2 diagram (rendered to SVG). References the logical layer; never edits it. | Available |
-| [portability-proof.md](portability-proof.md) (+ [.d2](diagrams/portability.d2) / [.svg](diagrams/portability.svg)) | The **portability proof**: the same 43-capability layer expressed on **two further public-archetype realisations** (Cloud-A, a Google-Cloud-shaped stack: Vertex AI Search, BigQuery, Cloud Run/Workflows, Vertex Model Registry, Dataplex; and Cloud-B, an Azure-Snowflake-shaped stack: Azure AI Search, Snowflake Cortex, Durable Functions, Azure ML registry, Snowflake Horizon/Purview) side by side with the our-stack example. Comparative capability-to-component table across all eight groups plus the cross-cutting band (trust core, router/inventory, durable substrate, retrieval, governance, security, resilience). **SC-4 result: zero logical-layer edits** to express either archetype. One logical layer to N realisations, as a d2 diagram (rendered to SVG). Public-generic: names public products, never an organisation. | Available |
+| [README](README.md) | Introduces the system, its truth rule, and its main parts. | A first reading. |
+| [Logical reference architecture](logical-reference-architecture.md) | Defines the technology-independent capabilities and their contracts. | Architecture design and capability assessment. |
+| [Illustrative solution architecture](illustrative-solution-architecture.md) | Maps the logical contracts to one set of component types and flows. | Testing how the contracts fit a concrete design. |
+| [Alternative solution patterns](alternative-solution-patterns.md) | Shows other placements for the same logical contracts. | Comparing estate shapes and deployment choices. |
+| [Evaluation framework](eval/evaluation-framework.md) | Defines the requirements, evidence, and hard failure conditions. | Assessing a working system. |
 
-## How to read it
+## Diagrams
 
-**To get the shape:** start with the **[README](README.md)**, the one-page landing. **For the detail:** the [logical reference architecture](logical-reference-architecture.md) §1 (framing) and View 1 (the capability map). An executive or non-specialist reader can locate any concern from there, then read its capability contract in §2 and trace it to the requirement it answers via the cross-walk in §3.
+Each diagram has a D2 source and a matching SVG image. The topology also has a Mermaid source.
+
+| Diagram | Purpose |
+|---|---|
+| [Summary](diagrams/summary-at-a-glance.svg) | Shows the full design and the controls in the deterministic spine. |
+| [Capability map](diagrams/view1-capability-map.svg) | Groups the capabilities by the outcome they own. |
+| [Components and flows](diagrams/view2-component-flow.svg) | Shows information stores, derived views, routing, durable work, and release. |
+| [Reasoning tiers](diagrams/view3-two-tier-expression.svg) | Shows evidence routing, reasoning routing, the general model, and the specialist inventory. |
+| [Trust boundary topology](diagrams/view4-mesh-topology.svg) | Shows business unit scopes, a sensitive domain, separate enterprises, and governed projections. |
+| [Learning and operation](diagrams/view5-learn-and-run.svg) | Shows how the system learns an organisation and how durable work recovers from failure. |
+| [Illustrative solution](diagrams/illustrative-solution-architecture.svg) | Places the logical contracts on one set of component types. |
+| [Alternative patterns](diagrams/alternative-solution-patterns.svg) | Compares several solution shapes. |
+
+The trust boundary topology is also available as [Mermaid](diagrams/view4-mesh-topology.mmd).
+
+## Relationship between the documents
+
+The evaluation framework defines the requirements. The logical architecture assigns each requirement to one capability. Its cross-walk also records the requirements supported by each capability.
+
+The illustrative solution and alternative patterns apply the logical contracts to component and estate shapes. Product mappings can change while the logical contracts remain stable.

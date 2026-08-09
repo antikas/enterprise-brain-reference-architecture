@@ -1,43 +1,223 @@
-# EBRA View 3 — The two-tier expression (the thesis IS the architecture). Canonical d2.
-# Public-generic: no organisation names, no product names.
-direction: down
+# View 3: reasoning tiers and their two routing decisions.
+direction: right
 
-thesis: "The thesis (read top to bottom)" {
-  L0: "CHANNEL\nthe acting user / surface"
-  L1: "ORCHESTRATOR\nfrontier · general · swappable · never fine-tuned"
-  L2: "HYBRID ROUTER\nper-call: specialist or frontier"
-  L3: "SPECIALIST INVENTORY\ntuned on the proprietary corpus — the moat" { style.fill: "#ecfdf5" }
-  L4: "DURABLE-EXECUTION SUBSTRATE\nreplayable, failure-surviving reasoning"
-  L5: "PROPRIETARY CORPUS + EVALUATION SUBSTRATE\nwhat specialists are grown from and graded against" { shape: cylinder }
-  L0 -> L1 -> L2 -> L3 -> L4 -> L5
+style.fill: "#faf7f2"
+
+classes: {
+  spine-band: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 12
+      font-size: 15
+      bold: true
+    }
+  }
+  spine-col: {
+    style: {
+      fill: "#2c3b33"
+      stroke: "#4b5e53"
+      font-color: "#f2ede4"
+      border-radius: 9
+      font-size: 12
+    }
+  }
+  band: {
+    style: {
+      fill: "#f4efe6"
+      stroke: "#c8bfad"
+      border-radius: 12
+      font-color: "#3a3529"
+      font-size: 14
+      bold: true
+    }
+  }
+  tier: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#c9c2b4"
+      border-radius: 9
+      font-color: "#33312c"
+      font-size: 13
+    }
+  }
+  specialist: {
+    style: {
+      fill: "#e7efe8"
+      stroke: "#4a7b5e"
+      border-radius: 9
+      font-color: "#22352a"
+      font-size: 13
+    }
+  }
+  decision: {
+    shape: diamond
+    style: {
+      fill: "#fdf6e9"
+      stroke: "#b79a56"
+      font-color: "#3d3116"
+      font-size: 12
+    }
+  }
+  store: {
+    shape: cylinder
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      font-size: 12
+    }
+  }
+  gate: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#a8452c"
+      stroke-width: 2
+      border-radius: 14
+      font-color: "#3a2118"
+      font-size: 13
+    }
+  }
+  badge: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 8
+      font-size: 11
+    }
+  }
+  cap: {
+    style: {
+      fill: "#efe8dc"
+      stroke: "#9a8768"
+      border-radius: 9
+      font-color: "#3a3123"
+      font-size: 12
+    }
+  }
+  k-path: {
+    style: {
+      stroke: "#4a7b5e"
+      stroke-width: 2
+      font-color: "#2e4a3a"
+      font-size: 11
+    }
+  }
+  c-path: {
+    style: {
+      stroke: "#9a8768"
+      stroke-width: 1
+      stroke-dash: 2
+      font-color: "#6b5c44"
+      font-size: 11
+    }
+  }
+  gate-path: {
+    style: {
+      stroke: "#a8452c"
+      stroke-width: 2
+      font-color: "#7d3320"
+      font-size: 11
+    }
+  }
+  loop: {
+    style: {
+      stroke: "#3d6b86"
+      stroke-width: 2
+      stroke-dash: 4
+      font-color: "#2c4c60"
+      font-size: 11
+    }
+  }
+  foot: {
+    shape: text
+    style: {
+      font-size: 12
+      font-color: "#5c574d"
+    }
+  }
 }
 
-CapValue: "G7 Value and Feedback\nexplain · adoption · reliance · decision-quality · feedback loop"
-CapReason: "GX · C-X1 Orchestrate and route"
-CapInv: "GX · C-X2 Specialist inventory" { style.fill: "#ecfdf5" }
-CapGov: "G4 Security · G5 Governance · G6 Runtime\naccess · oversight · budget · isolation"
-CapRun: "G6 Runtime and Operations\nrecover · degrade · observe · SLOs"
-CapTrust: "G3 Trust and Provenance\nsource-of-truth · contradiction-safe write · provenance" { style.fill: "#ecfdf5" }
-CapCorpus: "G1 Knowledge Ingress and Lifecycle\ncapture · freshness · conform · curate"
-CapRetr: "G2 Retrieval and Composition"
-CapEval: "C-X2 eval cards · C-G5.5 validation · C-G6.4 drift · C-G7.1 decision-quality"
+spine: "DETERMINISTIC SPINE: rules over recorded evidence govern claims produced through either reasoning tier." {
+  class: spine-band
+  near: top-center
+  grid-columns: 4
+  grid-gap: 16
+  s1: "Every capability declares\na determinism class" { class: spine-col }
+  s2: "A departure from\ndeterministic-claim is\njustified in its contract" { class: spine-col }
+  s3: "A model gate counts as a gate\nonly once calibrated\nagainst human labels" { class: spine-col }
+  s4: "Model output crossing back in\npasses a vocabulary or\nschema check first" { class: spine-col }
+}
 
-thesis.L0 -> CapValue: "served via" { style.stroke-dash: 3 }
-thesis.L1 -> CapReason: "realised by" { style.stroke-dash: 3 }
-thesis.L2 -> CapReason: "realised by" { style.stroke-dash: 3 }
-thesis.L3 -> CapInv: "realised by" { style.stroke-dash: 3 }
-thesis.L2 -> CapGov: "constrained by" { style.stroke-dash: 3 }
-thesis.L4 -> CapRun: "realised by" { style.stroke-dash: 3 }
-thesis.L4 -> CapTrust: "trust-gated by" { style.stroke-dash: 3 }
-thesis.L5 -> CapCorpus: "realised by" { style.stroke-dash: 3 }
-thesis.L5 -> CapRetr: "found by" { style.stroke-dash: 3 }
-thesis.L5 -> CapEval: "graded by" { style.stroke-dash: 3 }
+thesis: "REASONING PATH" {
+  class: band
+  grid-columns: 1
+  grid-gap: 14
+  channel: "Channel\nthe acting user, or a calling service" { class: tier }
+  introute: "Intent routing (C-G2.4)\nselects the governed evidence surfaces for the request\nrecall · observations · live federation · consolidated insight · governed ad-hoc read" { class: decision }
+  evidence: "Evidence assembly (C-G2.1 · C-G2.2 · C-G2.3)\nrecall returns evidence; observations reveal deterministic structure over it;\ncomposition fills budgeted slots by rule" { class: tier }
+  reasonroute: "Reasoning routing (C-X1)\nselects a reasoning tier after evidence assembly" { class: decision }
+  orchestrator: "General orchestrator\nhandles novel and broad tasks through a replaceable interface" { class: tier }
+  inventory: "Specialist inventory (C-X2)\nregistered models use defined corpus slices for recurring tasks. Each model\nhas a cost, quality and latency gate." { class: specialist }
+  substrate: "Durable-execution substrate (C-X3)\na multi-step reasoning act is a task-keyed journal, so it survives process loss,\nresumes at the point it reached, and can be audited afterwards" { class: tier }
+  corpus: "Proprietary corpus and evaluation substrate\nwhat specialists are grown from, and the sets that decide whether one is good\nenough to serve" { class: store }
+  channel -> introute
+  introute -> evidence
+  evidence -> reasonroute
+  reasonroute -> orchestrator
+  reasonroute -> inventory
+  orchestrator -> substrate
+  inventory -> substrate
+  substrate -> corpus
+}
 
-# The two runtime companions to the thesis (see §1 of the logical RA)
-flywheel: "RUNTIME COMPANION — the experience flywheel\ncapture -> distil -> eval-gate -> promote -> improve\nthe thesis turning under its own power once live" { style.fill: "#f0f9ff" }
-spine: "RUNTIME COMPANION — the deterministic spine\nstate acted on as true = a rule over observable events\nLLM generates/judges (gated); the specialist tier is trained" { style.fill: "#f8fafc" }
+caps: "WHICH CAPABILITIES REALISE, CONSTRAIN AND GRADE EACH TIER" {
+  class: band
+  grid-columns: 2
+  grid-gap: 14
+  value: "G7 · Value and Feedback\nexplain to the acting user, instrument adoption, calibrate reliance,\nmeasure decision quality, close the loop" { class: cap }
+  surfaces: "G2 · Retrieval, Understanding and Answer Composition\nthe governed evidence surfaces intent routing chooses between" { class: cap }
+  trust: "G3 · Trust and Provenance\nresolve source of truth, govern claim admission, bind provenance and\npropagate lineage, master enterprise entities" { class: cap }
+  govern: "G4 · Security and Access · G5 · Governance and Compliance\naccess, egress, query policy, lawful basis, oversight, erasure" { class: cap }
+  run: "G6 · Runtime and Operations\nservice levels, detection, degradation, recovery, observability, isolation" { class: cap }
+  ingress: "G1 · Source Reach, Knowledge Ingress and Lifecycle\nreach the estate, capture, keep fresh, sweep contradiction, conform, curate" { class: cap }
+  grading: "Grading the tiers\nC-X2 eval cards · C-G5.5 model validation · C-G6.4 drift · C-G7.1 decision quality" { class: cap }
+  cost: "Bounding the tiers\nC-G6.7 unit cost and budget · C-G6.8 latency · C-G6.9 caching" { class: cap }
+}
 
-flywheel -> thesis.L5: "feeds the corpus from use" { style.stroke-dash: 4; style.stroke: "#0284c7" }
-flywheel -> CapValue: "run by C-G7.5" { style.stroke-dash: 4; style.stroke: "#0284c7" }
-spine -> CapTrust: "anchored at C-G3.1 source-of-truth" { style.stroke-dash: 4 }
-spine -> thesis.L1: "bounds the generative tier (gated, audited)" { style.stroke-dash: 4 }
+release: "Governed release (C-G4.8)\nThe service classifies the answer surface, consumes the required verdicts and\nsaves the release or refusal record. Both reasoning tiers use this service." {
+  class: gate
+  spinebadge: "SPINE CONTROL · registered release path" { class: badge }
+}
+
+flywheel: "Learning from use (C-G7.5)\nThe system records feedback with its source. Approved changes update the corpus\nor become specialist tuning targets after evaluation." { class: specialist }
+
+promotion: "Cross-user promotion boundary (C-G5.7)\nconsented, de-identified aggregate signal" {
+  class: gate
+  spinebadge: "SPINE CONTROL · evaluated and approved promotion" { class: badge }
+}
+
+thesis.channel -> caps.value: "served through" { class: c-path }
+thesis.introute -> caps.surfaces: "chooses among" { class: c-path }
+thesis.evidence -> caps.trust: "trust-gated by" { class: c-path }
+thesis.evidence -> caps.ingress: "fed by" { class: c-path }
+thesis.reasonroute -> caps.govern: "bounded by" { class: c-path }
+thesis.reasonroute -> caps.cost: "budgeted by" { class: c-path }
+thesis.substrate -> caps.run: "operated by" { class: c-path }
+thesis.corpus -> caps.grading: "graded by" { class: c-path }
+
+thesis.orchestrator -> release: "candidate answer" { class: gate-path }
+thesis.inventory -> release: "candidate answer" { class: gate-path }
+release -> thesis.channel: "the answer, and the record of the decision" { class: gate-path }
+
+release -> flywheel: "every interaction, captured with its provenance" { class: loop }
+flywheel -> promotion: "candidate shared learning" { class: loop }
+promotion -> thesis.corpus: "promoted into the corpus under gate" { class: loop }
+flywheel -> thesis.inventory: "and into the inventory, as a tuning target" { class: loop }
+
+legend: "Legend. The dark band shows shared truth controls. Diamonds show routing decisions. Green shows the corpus, specialist models and learning from use.\nSand shows capabilities that govern or grade a tier. A red rule marks a control point. Blue dashed edges show the feedback path." {
+  class: foot
+  near: bottom-center
+}

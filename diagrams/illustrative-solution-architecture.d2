@@ -1,0 +1,302 @@
+# An illustrative solution architecture for the enterprise brain. Each box
+# shows one design choice that can implement the logical contracts.
+direction: down
+
+style.fill: "#faf7f2"
+
+classes: {
+  spine-band: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 12
+      font-size: 15
+      bold: true
+    }
+  }
+  spine-col: {
+    style: {
+      fill: "#2c3b33"
+      stroke: "#4b5e53"
+      font-color: "#f2ede4"
+      border-radius: 9
+      font-size: 12
+    }
+  }
+  band: {
+    style: {
+      fill: "#f4efe6"
+      stroke: "#c8bfad"
+      border-radius: 12
+      font-color: "#3a3529"
+      font-size: 14
+      bold: true
+    }
+  }
+  kband: {
+    style: {
+      fill: "#eef4ef"
+      stroke: "#4a7b5e"
+      border-radius: 12
+      font-color: "#22352a"
+      font-size: 14
+      bold: true
+    }
+  }
+  oband: {
+    style: {
+      fill: "#eef1f6"
+      stroke: "#5b6e8c"
+      border-radius: 12
+      font-color: "#26313f"
+      font-size: 14
+      bold: true
+    }
+  }
+  knowledge: {
+    style: {
+      fill: "#e7efe8"
+      stroke: "#4a7b5e"
+      border-radius: 9
+      font-color: "#22352a"
+      font-size: 12
+    }
+  }
+  operational: {
+    style: {
+      fill: "#e9edf3"
+      stroke: "#5b6e8c"
+      border-radius: 9
+      font-color: "#26313f"
+      font-size: 12
+    }
+  }
+  control: {
+    style: {
+      fill: "#efe8dc"
+      stroke: "#9a8768"
+      border-radius: 9
+      font-color: "#3a3123"
+      font-size: 12
+    }
+  }
+  plain: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#c9c2b4"
+      border-radius: 9
+      font-color: "#33312c"
+      font-size: 12
+    }
+  }
+  store: {
+    shape: cylinder
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      font-size: 12
+    }
+  }
+  ctrlstore: {
+    shape: cylinder
+    style: {
+      fill: "#5d503b"
+      stroke: "#5d503b"
+      font-color: "#f6f0e4"
+      font-size: 12
+    }
+  }
+  gate: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#a8452c"
+      stroke-width: 2
+      border-radius: 14
+      font-color: "#3a2118"
+      font-size: 13
+    }
+  }
+  badge: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 8
+      font-size: 11
+    }
+  }
+  decision: {
+    shape: diamond
+    style: {
+      fill: "#fdf6e9"
+      stroke: "#b79a56"
+      font-color: "#3d3116"
+      font-size: 12
+    }
+  }
+  k-path: {
+    style: {
+      stroke: "#4a7b5e"
+      stroke-width: 2
+      font-color: "#2e4a3a"
+      font-size: 11
+    }
+  }
+  o-path: {
+    style: {
+      stroke: "#5b6e8c"
+      stroke-width: 2
+      stroke-dash: 4
+      font-color: "#3b4a60"
+      font-size: 11
+    }
+  }
+  c-path: {
+    style: {
+      stroke: "#9a8768"
+      stroke-width: 1
+      stroke-dash: 2
+      font-color: "#6b5c44"
+      font-size: 11
+    }
+  }
+  gate-path: {
+    style: {
+      stroke: "#a8452c"
+      stroke-width: 2
+      font-color: "#7d3320"
+      font-size: 11
+    }
+  }
+  foot: {
+    shape: text
+    style: {
+      font-size: 12
+      font-color: "#5c574d"
+    }
+  }
+}
+
+spine: "ILLUSTRATIVE SOLUTION: these components show one way to implement the logical contracts." {
+  class: spine-band
+  near: top-center
+  grid-columns: 4
+  grid-gap: 16
+  s1: "One admission path\nC-G3.2" { class: spine-col }
+  s2: "Lineage in the record\nC-G3.3" { class: spine-col }
+  s3: "Durable before visible\nC-X3" { class: spine-col }
+  s4: "Registered release path\nC-G4.8" { class: spine-col }
+}
+
+connectors: "CONNECTOR PLANE (C-G1.6): each source declares its information plane. Missing allocation fails configuration." {
+  class: band
+  grid-columns: 3
+  grid-gap: 16
+  ingest: "Knowledge ingest\ndocuments, code, structured notes" { class: knowledge }
+  federate: "Operational federation\nfacts stay authoritative in the\nowning system" { class: operational }
+  capture: "Human capture\ntacit knowledge, proposed and\nconfirmed" { class: knowledge }
+}
+
+admission: "Claim admission (C-G3.2)\nA person approves each semantic claim before it enters L0.\nContradictions wait for review." {
+  class: gate
+  spinebadge: "SPINE CONTROL · claim admission" { class: badge }
+}
+
+truth: "Knowledge source of truth (L0)\nconfirmed semantic claims the brain may act on" { class: store }
+
+control: "Governed control state\nontology, policy, registries, decisions, release records" { class: ctrlstore }
+
+derived: "KNOWLEDGE VIEWS: generated from L0" {
+  class: kband
+  grid-columns: 4
+  grid-gap: 14
+  index: "Lexical and vector indexes" { class: knowledge }
+  graph: "Relationship graph" { class: knowledge }
+  obs: "Observations (C-G2.3)\nstructure found by algorithm,\nprose bounded to evidence" { class: knowledge }
+  digest: "Consolidated summaries" { class: knowledge }
+}
+
+opsviews: "OPERATIONAL-DERIVED VIEWS: build stamp, independent reconciliation, path and freshness, refuse-on-stale, and structurally outside recall" {
+  class: oband
+  grid-columns: 2
+  grid-gap: 14
+  master: "Enterprise entity master (C-G3.4)\none master across soft unit scopes" { class: operational }
+  products: "Consolidated insight and generated\ndata products (C-G2.5)" { class: operational }
+}
+
+route: "Intent routing (C-G2.4)\nwhich governed evidence surface can answer this?" { class: decision }
+
+compose: "Compose (C-G2.2)\ndeterministic, budgeted evidence slots" { class: plain }
+
+reason: "Reasoning routing (C-X1)\nspecialist tier, or general orchestrator?" { class: decision }
+
+specialist: "Specialist inventory (C-X2)\nregistered models for recurring tasks" { class: knowledge }
+
+frontier: "General orchestrator\nhandles novel and broad tasks through a replaceable interface" { class: plain }
+
+durable: "Durable agent work (C-X3)\ntask-keyed append-only journal: intent before effect, result before\nemission, approval waits that survive restart" {
+  class: gate
+  spinebadge: "SPINE CONTROL · durable work" { class: badge }
+}
+
+release: "Governed release (C-G4.8)\nthe single external egress path: classify the surface, consume the named\nverdicts, persist the release-or-refusal record, and only then emit" {
+  class: gate
+  spinebadge: "SPINE CONTROL · registered release path" { class: badge }
+}
+
+consumer: "Consumer surface\nan assistant, an editor, a service client" {
+  shape: oval
+  class: plain
+}
+
+evalsub: "Evaluation substrate\nretrieval sets, decision-quality sets, drift baselines" { class: store }
+
+runtime: "RUNTIME AND OPERATIONS: bounded repair, in dependency order" {
+  class: band
+  grid-columns: 4
+  grid-gap: 14
+  detect: "Silent-failure detection (C-G6.2)" { class: plain }
+  degrade: "Graceful degradation (C-G6.5)" { class: plain }
+  recover: "Recovery and rebuild (C-G6.3)" { class: plain }
+  observe: "Observability, including evaluation\nof answers on the live path (C-G6.11)" { class: plain }
+  detect -> degrade
+  degrade -> recover
+  recover -> observe
+}
+
+consumer -> route: "request" { class: k-path }
+route -> derived: "recall and observations" { class: k-path }
+route -> opsviews: "operational answers, with path and freshness" { class: o-path }
+derived -> compose: "evidence" { class: k-path }
+opsviews -> compose: "figures, and where they came from" { class: o-path }
+compose -> reason: "assembled evidence" { class: k-path }
+reason -> specialist: "a specialist fits" { class: k-path }
+reason -> frontier: "escalate" { class: k-path }
+specialist -> release: "internal candidate answer" { class: gate-path }
+frontier -> release: "internal candidate answer" { class: gate-path }
+release -> consumer: "answer, trust signals, release record" { class: gate-path }
+
+connectors.ingest -> admission: "candidate claim" { class: k-path }
+connectors.capture -> admission: "confirmed capture" { class: k-path }
+admission -> truth: "admitted" { class: gate-path }
+admission -> control: "hold, override and verdict records" { class: c-path }
+truth -> derived: "builds" { class: k-path }
+connectors.federate -> opsviews: "projected under the operational contract" { class: o-path }
+control -> opsviews: "governs materialisation" { class: c-path }
+
+durable -> reason: "hosts multi-step work" { class: c-path }
+durable -> admission: "persists the approval wait, and resumes on the verdict" { class: c-path }
+evalsub -> specialist: "gates deployment" { class: c-path }
+evalsub -> derived: "grades retrieval" { class: c-path }
+
+runtime.detect -> derived: "tripwire" { class: c-path }
+runtime.degrade -> route: "narrows the surface set" { class: c-path }
+runtime.recover -> truth: "restores authority, then rebuilds the views over it" { class: c-path }
+runtime.observe -> release: "correlates to the release record" { class: c-path }
+
+legend: "Legend. The dark band shows shared truth controls. Green shows the knowledge plane. Blue-grey shows the operational plane. Sand shows governed\ncontrol state. A red rule marks a control point. Colours and line styles show design roles." {
+  class: foot
+  near: bottom-center
+}

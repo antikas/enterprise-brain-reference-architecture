@@ -1,4 +1,3 @@
-# Public repo .gitignore (staged here; copied to enterprise-brain-public at flip).
 .DS_Store
 Thumbs.db
 .claude/

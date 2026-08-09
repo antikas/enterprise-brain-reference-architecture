@@ -1,76 +1,236 @@
-# EBRA View 1 — Capability map (heatmappable). Canonical d2; rendered to SVG via pinned d2.
-# Public-generic: no organisation names, no product names.
+# View 1: capability map. Each cell names one capability and its contract.
 direction: down
 
-GX: "GX · Reasoning and Orchestration  (cross-cutting — the two-tier thesis)" {
-  style.fill: "#eef2ff"
-  style.stroke-dash: 3
-  X1: "C-X1 Orchestrate and route"
-  X2: "C-X2 Maintain specialist inventory"
+style.fill: "#faf7f2"
+
+classes: {
+  spine-band: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 12
+      font-size: 15
+      bold: true
+    }
+  }
+  spine-col: {
+    style: {
+      fill: "#2c3b33"
+      stroke: "#4b5e53"
+      font-color: "#f2ede4"
+      border-radius: 9
+      font-size: 12
+    }
+  }
+  group: {
+    style: {
+      fill: "#f4efe6"
+      stroke: "#c8bfad"
+      border-radius: 12
+      font-color: "#3a3529"
+      font-size: 15
+      bold: true
+    }
+  }
+  cross: {
+    style: {
+      fill: "#efe8dc"
+      stroke: "#9a8768"
+      stroke-dash: 3
+      border-radius: 12
+      font-color: "#3a3123"
+      font-size: 15
+      bold: true
+    }
+  }
+  cell: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#c9c2b4"
+      border-radius: 9
+      font-color: "#33312c"
+      font-size: 12
+    }
+  }
+  kcell: {
+    style: {
+      fill: "#e7efe8"
+      stroke: "#4a7b5e"
+      border-radius: 9
+      font-color: "#22352a"
+      font-size: 12
+    }
+  }
+  ocell: {
+    style: {
+      fill: "#e9edf3"
+      stroke: "#5b6e8c"
+      border-radius: 9
+      font-color: "#26313f"
+      font-size: 12
+    }
+  }
+  gatecell: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#a8452c"
+      stroke-width: 2
+      border-radius: 12
+      font-color: "#3a2118"
+      font-size: 12
+    }
+  }
+  flow: {
+    style: {
+      stroke: "#8c8578"
+      stroke-width: 2
+      font-color: "#5c574d"
+      font-size: 12
+    }
+  }
+  c-path: {
+    style: {
+      stroke: "#9a8768"
+      stroke-width: 1
+      stroke-dash: 2
+      font-color: "#6b5c44"
+      font-size: 12
+    }
+  }
+  foot: {
+    shape: text
+    style: {
+      font-size: 12
+      font-color: "#5c574d"
+    }
+  }
 }
 
-G1: "G1 · Knowledge Ingress and Lifecycle" {
-  G1a: "C-G1.1 Capture"
-  G1b: "C-G1.2 Freshness"
-  G1c: "C-G1.3 Contradiction sweep"
-  G1d: "C-G1.4 Ontology conformance"
-  G1e: "C-G1.5 Lifecycle governance"
+spine: "DETERMINISTIC SPINE: rules over recorded evidence govern claims, actions and release." {
+  class: spine-band
+  near: top-center
+  grid-columns: 6
+  grid-gap: 16
+  s1: "C-G3.2\nclaim admission" { class: spine-col }
+  s2: "C-G3.3\nlineage in the record" { class: spine-col }
+  s3: "C-G5.2\nhuman oversight verdict" { class: spine-col }
+  s4: "C-X3\ndurable work journal" { class: spine-col }
+  s5: "C-G4.8\ngoverned release" { class: spine-col }
+  s6: "C-G5.4\nerasure authority" { class: spine-col }
 }
 
-G2: "G2 · Retrieval and Context Composition" {
-  G2a: "C-G2.1 Retrieve"
-  G2b: "C-G2.2 Compose"
+GX: "GX · Reasoning & Orchestration\ncross-cutting capabilities" {
+  class: cross
+  grid-columns: 3
+  grid-gap: 14
+  x1: "C-X1\nOrchestrate and route reasoning" { class: cell }
+  x2: "C-X2\nMaintain the specialist inventory" { class: cell }
+  x3: "C-X3\nExecute durable agent work" { class: gatecell }
 }
 
-G3: "G3 · Trust and Provenance  (the moat)" {
-  style.fill: "#ecfdf5"
-  G3a: "C-G3.1 Source of truth"
-  G3b: "C-G3.2 Contradiction-safe write"
-  G3c: "C-G3.3 Provenance-in-record"
+G1: "G1 · Source Reach, Knowledge Ingress & Lifecycle" {
+  class: group
+  grid-columns: 2
+  grid-gap: 14
+  a: "C-G1.1\nCapture proprietary knowledge" { class: kcell }
+  b: "C-G1.2\nMaintain corpus freshness" { class: kcell }
+  c: "C-G1.3\nSweep contradiction stock" { class: kcell }
+  d: "C-G1.4\nConform to ontology under evolution" { class: kcell }
+  e: "C-G1.5\nGovern knowledge lifecycle" { class: kcell }
+  f: "C-G1.6\nGovern source reach across planes" { class: ocell }
 }
 
-G4: "G4 · Security and Access Control" {
-  G4a: "C-G4.1 Access"
-  G4b: "C-G4.2 Prompt-injection"
-  G4c: "C-G4.3 Poisoning"
-  G4d: "C-G4.4 Egress"
-  G4e: "C-G4.5 Supply-chain"
-  G4f: "C-G4.6 Tool agency"
-  G4g: "C-G4.7 Adversarial assurance"
+G2: "G2 · Retrieval, Understanding & Answer Composition" {
+  class: group
+  grid-columns: 2
+  grid-gap: 14
+  a: "C-G2.1\nRetrieve relevant context" { class: kcell }
+  b: "C-G2.2\nCompose context for reasoning" { class: kcell }
+  c: "C-G2.3\nSurface evidence-backed observations" { class: kcell }
+  d: "C-G2.4\nRoute intent to governed answer surfaces" { class: cell }
+  e: "C-G2.5\nGenerate and serve mastered operational products" { class: ocell }
+  f: "C-G2.6\nGovern derived organisational contracts" { class: ocell }
 }
 
-G5: "G5 · Governance and Compliance" {
-  G5a: "C-G5.1 Management system"
-  G5b: "C-G5.2 Human oversight"
-  G5c: "C-G5.3 Audit reconstruction"
-  G5d: "C-G5.4 Erasure and retention"
-  G5e: "C-G5.5 Model validation"
-  G5f: "C-G5.6 Residency and resilience"
-  G5g: "C-G5.7 Cross-user promotion boundary"
+G3: "G3 · Trust & Provenance" {
+  class: group
+  grid-columns: 2
+  grid-gap: 14
+  a: "C-G3.1\nResolve source of truth" { class: kcell }
+  b: "C-G3.2\nGovern claim admission" { class: gatecell }
+  c: "C-G3.3\nBind provenance into the record and propagate lineage" { class: gatecell }
+  d: "C-G3.4\nMaster enterprise entities" { class: ocell }
 }
 
-G6: "G6 · Runtime and Operations" {
-  G6a: "C-G6.1 SLOs"
-  G6b: "C-G6.2 Silent-failure detect"
-  G6c: "C-G6.3 Recover from store"
-  G6d: "C-G6.4 Quality drift"
-  G6e: "C-G6.5 Graceful degradation"
-  G6f: "C-G6.6 Rehearse failure"
-  G6g: "C-G6.7 Cost and budget"
-  G6h: "C-G6.8 Latency"
-  G6i: "C-G6.9 Caching"
-  G6j: "C-G6.10 Sustainability"
-  G6k: "C-G6.11 Observability"
-  G6l: "C-G6.12 Scale and isolation"
+G4: "G4 · Security & Access Control" {
+  class: group
+  grid-columns: 3
+  grid-gap: 14
+  a: "C-G4.1\nMediate access by need-to-know" { class: gatecell }
+  b: "C-G4.2\nResist prompt injection" { class: cell }
+  c: "C-G4.3\nResist knowledge poisoning" { class: cell }
+  d: "C-G4.4\nContain sensitive-data egress" { class: gatecell }
+  e: "C-G4.5\nAttest the supply chain" { class: cell }
+  f: "C-G4.6\nConstrain tool agency" { class: cell }
+  g: "C-G4.7\nExercise adversarial assurance" { class: cell }
+  h: "C-G4.8\nGovern information release" { class: gatecell }
+  i: "C-G4.9\nEvaluate governed query policy across dialects" { class: gatecell }
 }
 
-G7: "G7 · Value and Feedback" {
-  G7a: "C-G7.1 Decision quality"
-  G7b: "C-G7.2 Adoption"
-  G7c: "C-G7.3 Appropriate reliance"
-  G7d: "C-G7.4 User explainability"
-  G7e: "C-G7.5 Feedback loop"
+G5: "G5 · Governance & Compliance" {
+  class: group
+  grid-columns: 3
+  grid-gap: 14
+  a: "C-G5.1\nOperate the AI management system" { class: cell }
+  b: "C-G5.2\nAssure human oversight" { class: gatecell }
+  c: "C-G5.3\nReconstruct the decision record" { class: cell }
+  d: "C-G5.4\nEnforce erasure and retention" { class: gatecell }
+  e: "C-G5.5\nValidate the brain as a model" { class: cell }
+  f: "C-G5.6\nHonour residency and operational-resilience obligations" { class: cell }
+  g: "C-G5.7\nBound cross-user promotion by consent and de-identification" { class: gatecell }
+  h: "C-G5.8\nEstablish consent or lawful basis for protected release" { class: gatecell }
 }
 
-GX -> G1: {style.stroke-dash: 4}
-G1 -> G2 -> G3 -> G4 -> G5 -> G6 -> G7: "canonical flow order"
+G6: "G6 · Runtime & Operations" {
+  class: group
+  grid-columns: 3
+  grid-gap: 14
+  a: "C-G6.1\nMeet service-level objectives" { class: cell }
+  b: "C-G6.2\nDetect silent failure" { class: cell }
+  c: "C-G6.3\nRecover from store" { class: cell }
+  d: "C-G6.4\nDetect quality drift" { class: cell }
+  e: "C-G6.5\nDegrade gracefully" { class: cell }
+  f: "C-G6.6\nRehearse failure" { class: cell }
+  g: "C-G6.7\nAccount for unit cost and budget" { class: cell }
+  h: "C-G6.8\nMeet latency objectives" { class: cell }
+  i: "C-G6.9\nExploit caching" { class: cell }
+  j: "C-G6.10\nAccount for sustainability" { class: cell }
+  k: "C-G6.11\nObserve the running system" { class: cell }
+  l: "C-G6.12\nScale with scope and trust-boundary isolation" { class: cell }
+}
+
+G7: "G7 · Value & Feedback" {
+  class: group
+  grid-columns: 2
+  grid-gap: 14
+  a: "C-G7.1\nMeasure decision quality" { class: cell }
+  b: "C-G7.2\nInstrument adoption" { class: cell }
+  c: "C-G7.3\nCalibrate appropriate reliance" { class: cell }
+  d: "C-G7.4\nExplain to the acting user" { class: cell }
+  e: "C-G7.5\nClose the feedback-to-improvement loop" { class: cell }
+}
+
+G1 -> G2: "reach and admit, then retrieve and understand" { class: flow }
+G2 -> G3: "resolve what is true and where it came from" { class: flow }
+G3 -> G4: "then decide who may see it" { class: flow }
+G4 -> G5: "under a governance and lawful-basis frame" { class: flow }
+G5 -> G6: "operated to a resilience contract" { class: flow }
+G6 -> G7: "and judged on the value it returns" { class: flow }
+GX -> G2: "reasons over the assembled evidence" { class: c-path }
+GX -> G6: "and runs on the durable substrate" { class: c-path }
+
+legend: "Legend. Each container is a capability group. Each cell names a capability and its contract. Green marks the knowledge plane. Blue-grey marks the\noperational plane. A red rule marks a truth control. The dashed group contains cross-cutting capabilities. Grey edges show the order used for a request.\nColours show design roles. An organisation can add assessment data to each cell." {
+  class: foot
+  near: bottom-center
+}

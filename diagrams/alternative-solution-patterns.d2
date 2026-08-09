@@ -1,0 +1,168 @@
+# Alternative solution patterns map one logical architecture to several
+# technology shapes. The shapes describe design choices.
+direction: right
+
+style.fill: "#faf7f2"
+
+classes: {
+  spine-band: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 12
+      font-size: 15
+      bold: true
+    }
+  }
+  spine-col: {
+    style: {
+      fill: "#2c3b33"
+      stroke: "#4b5e53"
+      font-color: "#f2ede4"
+      border-radius: 9
+      font-size: 12
+    }
+  }
+  logical: {
+    style: {
+      fill: "#2c3b33"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 12
+      font-size: 16
+      bold: true
+    }
+  }
+  band: {
+    style: {
+      fill: "#f4efe6"
+      stroke: "#c8bfad"
+      border-radius: 12
+      font-color: "#3a3529"
+      font-size: 14
+      bold: true
+    }
+  }
+  pattern: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#c9c2b4"
+      border-radius: 9
+      font-color: "#33312c"
+      font-size: 12
+    }
+  }
+  kpattern: {
+    style: {
+      fill: "#e7efe8"
+      stroke: "#4a7b5e"
+      border-radius: 9
+      font-color: "#22352a"
+      font-size: 12
+    }
+  }
+  opattern: {
+    style: {
+      fill: "#e9edf3"
+      stroke: "#5b6e8c"
+      border-radius: 9
+      font-color: "#26313f"
+      font-size: 12
+    }
+  }
+  open: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#c9c2b4"
+      stroke-dash: 3
+      border-radius: 9
+      font-color: "#5c574d"
+      font-size: 12
+    }
+  }
+  gate: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#a8452c"
+      stroke-width: 2
+      border-radius: 14
+      font-color: "#3a2118"
+      font-size: 13
+    }
+  }
+  badge: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 8
+      font-size: 11
+    }
+  }
+  map-path: {
+    style: {
+      stroke: "#8c8578"
+      stroke-width: 2
+      stroke-dash: 3
+      font-color: "#5c574d"
+      font-size: 11
+    }
+  }
+  gate-path: {
+    style: {
+      stroke: "#a8452c"
+      stroke-width: 2
+      font-color: "#7d3320"
+      font-size: 11
+    }
+  }
+  foot: {
+    shape: text
+    style: {
+      font-size: 12
+      font-color: "#5c574d"
+    }
+  }
+}
+
+spine: "PATTERN CHOICES: each shape sets the technology, cost, hosting model and operating model. The same truth controls apply to every shape." {
+  class: spine-band
+  near: top-center
+  grid-columns: 4
+  grid-gap: 16
+  s1: "May change\nwhere the index lives, which\nengine serves it, how the\nworkflow runtime is hosted" { class: spine-col }
+  s2: "May change\nthe unit economics, the\nlatency envelope, and who\noperates each piece" { class: spine-col }
+  s3: "Shared control\na person admits each semantic\nclaim and reviews each\ncontradiction" { class: spine-col }
+  s4: "Shared control\nevery registered external\nanswer uses one governed\nrelease path" { class: spine-col }
+}
+
+logical: "LOGICAL REFERENCE ARCHITECTURE\ncapability contracts and quality classes\nindependent of products and organisations" { class: logical }
+
+patterns: "SOLUTION SHAPES: each shape implements the same contracts" {
+  class: band
+  grid-columns: 2
+  grid-gap: 16
+  selfhosted: "Pattern A: self-hosted and file-first\nan open-format document corpus under version control, an\nembedded vector and lexical index, an open embedding model,\na hosted general orchestrator behind a substitution seam" { class: kpattern }
+  managed: "Pattern B: managed search and warehouse\na cloud search service for retrieval, a columnar warehouse for\noperational federation, a serverless workflow engine, a model\nregistry, a catalogue carrying lineage and policy" { class: opattern }
+  platform: "Pattern C: platform-native data cloud\nplatform search over governed shares, in-platform model serving,\na durable function runtime, and the platform's own registry and\ngovernance surface" { class: opattern }
+  hybrid: "Pattern D: federated hybrid\nthe knowledge plane held close, the operational plane reached live\nthrough governed federation, and the reasoning tier substitutable\nbehind a declared provider seam" { class: pattern }
+  more: "Other patterns\nan adopter can map the contracts to another technology estate" { class: open }
+}
+
+invariant: "Controls shared by every pattern\nA person admits each semantic claim and reviews each contradiction.\nEach record carries its source, and each assembled figure carries its lineage.\nRules define which claims the system can record and release.\nOwning systems serve current operational facts through governed queries.\nEvery registered external answer uses one governed release path after its release record is saved.\nApproval waits and effect settlement records survive process loss." {
+  class: gate
+  spinebadge: "SHARED CONTROLS" { class: badge }
+}
+
+logical -> patterns.selfhosted: "maps onto" { class: map-path }
+logical -> patterns.managed: "maps onto" { class: map-path }
+logical -> patterns.platform: "maps onto" { class: map-path }
+logical -> patterns.hybrid: "maps onto" { class: map-path }
+logical -> patterns.more: "maps onto" { class: map-path }
+patterns -> invariant: "uses" { class: gate-path }
+
+legend: "Legend. The dark card shows the logical architecture. Each light card shows one solution shape. Green marks local knowledge services. Blue-grey marks\nmanaged operational services. The dashed card allows further mappings. The red rule marks controls shared by every shape. Colours group design roles." {
+  class: foot
+  near: bottom-center
+}

@@ -1,0 +1,241 @@
+# View 4: business unit scopes, sensitive domains and enterprise boundaries.
+direction: down
+
+style.fill: "#faf7f2"
+
+classes: {
+  spine-band: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 12
+      font-size: 15
+      bold: true
+    }
+  }
+  spine-col: {
+    style: {
+      fill: "#2c3b33"
+      stroke: "#4b5e53"
+      font-color: "#f2ede4"
+      border-radius: 9
+      font-size: 12
+    }
+  }
+  band: {
+    style: {
+      fill: "#f4efe6"
+      stroke: "#c8bfad"
+      border-radius: 12
+      font-color: "#3a3529"
+      font-size: 14
+      bold: true
+    }
+  }
+  enterprise: {
+    style: {
+      fill: "#f0ece3"
+      stroke: "#8c8578"
+      stroke-width: 2
+      border-radius: 12
+      font-color: "#33312c"
+      font-size: 14
+      bold: true
+    }
+  }
+  scope: {
+    style: {
+      fill: "#e7efe8"
+      stroke: "#4a7b5e"
+      stroke-dash: 3
+      border-radius: 9
+      font-color: "#22352a"
+      font-size: 12
+    }
+  }
+  operational: {
+    style: {
+      fill: "#e9edf3"
+      stroke: "#5b6e8c"
+      border-radius: 9
+      font-color: "#26313f"
+      font-size: 12
+    }
+  }
+  plain: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#c9c2b4"
+      border-radius: 9
+      font-color: "#33312c"
+      font-size: 12
+    }
+  }
+  store: {
+    shape: cylinder
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      font-size: 12
+    }
+  }
+  sealed: {
+    shape: cylinder
+    style: {
+      fill: "#4a2d24"
+      stroke: "#4a2d24"
+      font-color: "#f6ece6"
+      font-size: 12
+    }
+  }
+  gate: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#a8452c"
+      stroke-width: 2
+      border-radius: 14
+      font-color: "#3a2118"
+      font-size: 13
+    }
+  }
+  badge: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 8
+      font-size: 11
+    }
+  }
+  control: {
+    style: {
+      fill: "#efe8dc"
+      stroke: "#9a8768"
+      border-radius: 9
+      font-color: "#3a3123"
+      font-size: 12
+    }
+  }
+  k-path: {
+    style: {
+      stroke: "#4a7b5e"
+      stroke-width: 2
+      font-color: "#2e4a3a"
+      font-size: 11
+    }
+  }
+  o-path: {
+    style: {
+      stroke: "#5b6e8c"
+      stroke-width: 2
+      stroke-dash: 4
+      font-color: "#3b4a60"
+      font-size: 11
+    }
+  }
+  c-path: {
+    style: {
+      stroke: "#9a8768"
+      stroke-width: 1
+      stroke-dash: 2
+      font-color: "#6b5c44"
+      font-size: 11
+    }
+  }
+  gate-path: {
+    style: {
+      stroke: "#a8452c"
+      stroke-width: 2
+      font-color: "#7d3320"
+      font-size: 11
+    }
+  }
+  foot: {
+    shape: text
+    style: {
+      font-size: 12
+      font-color: "#5c574d"
+    }
+  }
+}
+
+spine: "TRUST BOUNDARY TYPES: each type sets a storage and access rule." {
+  class: spine-band
+  near: top-center
+  grid-columns: 3
+  grid-gap: 16
+  s1: "Business unit scope\nlabels every source, contract,\nentity and lineage record. Unit\nscopes share one enterprise master." { class: spine-col }
+  s2: "Sensitive domain\nuses its own store and index.\nThe enterprise master reads a\ngoverned projection." { class: spine-col }
+  s3: "Enterprise boundary\nuses separate storage. Governed,\nde-identified knowledge or insight\nprojections can cross." { class: spine-col }
+}
+
+mesh: "TOPOLOGY: each declared trust boundary has its own brain. C-G6.12 sets the storage isolation rule." {
+  class: band
+  grid-columns: 2
+  grid-gap: 24
+
+  brainA: "Enterprise A: one enterprise, several unit scopes, one master" {
+    class: enterprise
+    unit1: "Unit scope one\na regulated function.\nEvery source, contract, entity\nand lineage record carries the\nscope label." { class: scope }
+    unit2: "Unit scope two\na client-facing desk. It shares\nreal entities with unit scope\none, because both belong to\nthe same enterprise." { class: scope }
+    master: "One enterprise entity master (C-G3.4)\nThe same counterparty in both unit scopes resolves once. Rules confirm\nclear matches. Uncertain matches wait for review. Governed control state\nstores the alias decision. C-G3.1 supplies field survivorship. C-G3.3\nsupplies lineage." { class: operational }
+    sensitive: "Sensitive-domain store and index\nphysically separate under the\ndeclared boundary" { class: sealed }
+    sensproj: "Governed sensitive-domain projection\nthe enterprise master reads this view" {
+      class: gate
+      spinebadge: "SPINE CONTROL · governed projection" { class: badge }
+    }
+    storeA: "Enterprise A knowledge store and index\nindexes only what A may see" { class: store }
+    recallA: "Recall endpoint A\nreturns evidence, with provenance" { class: plain }
+    insightA: "Consolidated insight and data products (C-G2.5)\nanswered with path and freshness, refused when stale,\nand structurally outside recall" { class: operational }
+    unit1 -> master: "the shared entity, seen from one scope"
+    unit2 -> master: "the same entity, seen from the other"
+    sensitive -> sensproj: "approved projection"
+    sensproj -> master: "governed projection"
+    storeA -> recallA: "what A may recall"
+    master -> insightA: "mastered operational records"
+  }
+
+  brainB: "Enterprise B: separate trust boundary" {
+    class: enterprise
+    storeB: "Enterprise B knowledge store and index" { class: store }
+    recallB: "Recall endpoint B" { class: plain }
+    opsB: "Enterprise B operational systems\nown current operational facts" { class: operational }
+    storeB -> recallB: "what B may recall"
+    opsB -> storeB: "governed live read within B"
+  }
+}
+
+visibility: "Governed visibility map (C-G4.1 · C-G6.12)\nRecords each allowed directional projection. Each target store indexes only\nthe content allowed by the map." { class: control }
+
+deid: "De-identification boundary (C-G5.7)\non every edge that crosses a declared trust boundary" {
+  class: gate
+  spinebadge: "SPINE CONTROL · consented, de-identified aggregate signal" { class: badge }
+}
+
+substrate: "Shared reasoning and embedding substrate\nStateless models use a stable embed-and-recall contract. Each corpus stays in its\nown store. The substrate serves each brain through its declared access path." { class: plain }
+
+erasure: "Subject erasure (C-G5.4)\nThe erasure authority finds every store that holds material about the subject. Each\nholder executes the deletion and records the result. Recovery applies the tombstone\nbefore it rebuilds derived views." {
+  class: gate
+  spinebadge: "SPINE CONTROL · erasure reaches every derived family" { class: badge }
+}
+
+growth: "Adding a trust boundary\nCreate a brain with separate storage. Declare each allowed projection in the visibility\nmap. Connect it to the shared substrate through the stable contract." { class: plain }
+
+mesh.brainA -> substrate: "embed and recall, as a thin client" { class: c-path }
+mesh.brainB -> substrate: "embed and recall, as a thin client" { class: c-path }
+
+# The visibility map declares a B-to-A projection. Enterprise A indexes the
+# approved content from Enterprise B.
+mesh.brainB.storeB -> deid: "B's de-identified knowledge projection" { class: gate-path }
+deid -> mesh.brainA.storeA: "indexed into what A may see" { class: gate-path }
+visibility -> deid: "declares the B-to-A projection" { class: c-path }
+
+erasure -> mesh: "spans every store the subject touches" { class: c-path }
+substrate -> growth: "serves the new brain" { class: c-path }
+
+legend: "Legend. Each heavy border marks one brain and trust boundary. Dashed green boxes are business unit scopes. Dark cylinders are knowledge stores.\nThe red cylinder is a sensitive-domain store. Blue-grey marks the operational plane. A red rule marks a control point. Edges show allowed data paths." {
+  class: foot
+  near: bottom-center
+}

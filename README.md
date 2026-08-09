@@ -1,74 +1,73 @@
-# The Enterprise Brain: a reference architecture
+# The Enterprise Brain reference architecture
 
-*A capability-based reference architecture for the institutional memory-and-reasoning system almost
-every large enterprise is now trying to build. It is designed to be **portable** across technology
-stacks, **trustworthy** enough for a regulated institution, and **honestly measurable**.*
+An **enterprise brain** gives people and software governed access to an organisation's knowledge. It captures knowledge, finds evidence, supports reasoning, and controls the work that follows.
 
-![The enterprise brain at a glance](diagrams/summary-at-a-glance.svg)
+This repository defines the capabilities and contracts for that system. The design is independent of products and vendors. An organisation can map the capabilities to its own technology.
 
-## The problem this solves
+The [Lexikon](https://antikas.io/writing/lexikon/) gives stable definitions for the enterprise brain, the deterministic spine, and related terms. [A Reference Architecture for the Enterprise Brain](https://antikas.io/writing/the-enterprise-brain/) gives a shorter introduction to the design.
 
-Most organisations are building some version of an "AI brain": a system that holds proprietary
-knowledge, retrieves the right context, and reasons over it. Most cannot answer three plain questions
-about the one they are building: **Does it actually work? Can it be trusted in a decision that matters?
-And is it locked to a single vendor's stack?**
+![The Enterprise Brain at a glance](diagrams/summary-at-a-glance.svg)
 
-Teams build the two easy layers (load the documents, search them) and stop. The layers that decide
-whether a brain is *trustworthy*, *resilient*, *compliant*, and *valuable* are the ones that get
-skipped, and they are exactly the layers a bank, an investment manager, or any regulated institution
-cannot skip. This work answers those questions in a form you can adopt, measure against, and realise on
-whatever technology you already run.
+## The rule for truth
 
-## At a glance
+The architecture uses a **deterministic spine**. Rules over recorded evidence decide what the system may store or present as true.
 
-The brain answers three questions, in order. **Is it a brain?** It captures knowledge, retrieves the
-right context, and assembles it for reasoning. **Is it trustworthy?** This is the moat: it resolves
-which source to believe, it refuses to absorb a contradiction without a human, and every record carries
-its own provenance, so an audit lives in the record rather than a side log. **Can we run it?** It stays
-up under failure, resists attack, satisfies a regulator, proves its value, and runs at scale.
+The model can read, draft, summarise, explain, and propose. A person approves new knowledge claims. Operational systems remain responsible for the current facts they own.
 
-Underneath sits a **two-tier engine**: a general frontier model orchestrates, a router decides each
-request, and an inventory of specialist models, grown on the organisation's own proprietary data, is the
-durable competitive asset.
+The design keeps five kinds of information separate:
 
-Two runtime properties make it more than a search box. The **experience flywheel**: every interaction
-is a learning event (*capture, distil, eval-gate, promote, improve*), so the brain gets better the more
-it is used, and that compounding is hard for a competitor to replicate quickly, because the advantage is
-the accumulated interactions, not the mechanism. The **deterministic spine**: anything the brain records
-or presents *as true* must follow from a rule over observable evidence, never a model's guess, so it
-does not confabulate the facts it acts on.
+- **Approved knowledge** contains the claims that the organisation has accepted.
+- **Operational facts** remain in the systems that own them.
+- **Knowledge-derived views** include indexes, clusters, summaries, and observations built from approved knowledge.
+- **Operational-derived views** include mastered records and analytical projections built from operational sources.
+- **Control state** records workflow events, approvals, lineage, access decisions, release decisions, and serving status.
 
-## Why it matters
+Every derived view records its sources. The system can build the view again from those sources. A materialised operational view also carries its build time, freshness limit, and reconciliation result.
 
-- **Portable, not vendor-locked.** Because the logical layer names no product, the *same* architecture
-  is realised on different stacks (our own, a Google-shaped cloud, an Azure-and-Snowflake-shaped cloud)
-  with zero changes to the architecture itself. An organisation maps its existing technology onto the
-  capabilities; it does not rebuild to a vendor's blueprint. The portability proof shows this on
-  multiple stacks rather than claiming it.
-- **Trustworthy by design.** The two layers most "AI brain" models forget are the two a regulated
-  institution asks about first: a **contradiction-safe gate** (four-eyes / maker-checker rendered into
-  the memory itself, so a confident model cannot silently corrupt the brain) and **provenance in the
-  record** (lineage and human-override carried in the artefact, audit-by-design), underpinned by a
-  **deterministic spine** that records as true only what a rule derives from evidence. All three are
-  first-class layers here, given the same weight as capture and retrieval.
-- **Honestly measured.** Every capability is graded against the evaluation framework, so a team can see
-  exactly what is built, what is partial, and what is still a roadmap, and watch the maturity rise only
-  on genuine progress.
-- **Grounded in a clear thesis.** The engine is a frontier orchestrator plus an inventory of specialist
-  models accumulated patiently on proprietary data, and the experience flywheel turns that inventory
-  into a *compounding* asset. The architecture makes that thesis buildable rather than leaving it as a
-  slide.
+## What the system does
 
-## The artefacts
+The enterprise brain covers the full path from source to action.
 
-| Artefact | What it is |
+It maps the systems, stores, and people that hold useful material. Each source stream receives a declared route into the architecture. Organisational knowledge enters through capture and approval. Current operational facts are read through governed federation or a declared projection.
+
+Retrieval finds evidence from approved knowledge. Observations describe patterns found across that evidence. Intent routing selects the evidence source for a request. Reasoning routing selects a general model or a specialist after the evidence has been assembled.
+
+Long-running work uses a durable journal. The journal records intent before an external effect and records the result before any answer or acknowledgement leaves the process. Approval waits and uncertain effects survive a restart.
+
+Every external answer passes through one release service. The service checks the recipient, access grant, protection class, lawful basis, query policy, minimisation rules, and any required human verdict. It records the release or refusal before sending the answer.
+
+The system learns from use through governed capture and evaluation. A candidate lesson carries its source and evidence. Promotion into approved knowledge uses the same claim gate as any other knowledge claim.
+
+Trust boundaries define storage. Business units inside one enterprise can share an entity master while retaining their own policy scope. A sensitive domain can use its own store and index. Separate enterprises use separate storage and exchange only governed projections.
+
+## What is in this repository
+
+The [index](INDEX.md) gives a reading order for the full architecture.
+
+### Documents
+
+| Document | What it contains |
 |---|---|
-| [logical-reference-architecture.md](logical-reference-architecture.md) | The tech-agnostic logical layer: 43 capabilities (eight groups plus a cross-cutting reasoning/orchestration band), each a logical contract carrying a determinism class; the experience-flywheel cross-cutting expression; the capability ↔ eval-dimension ↔ runtime-primitive cross-walk; three rendered views. |
-| [solution-example-our-stack.md](solution-example-our-stack.md) | A worked solution-architecture example: all 43 capabilities realised on one concrete stack, honest about built / partial / planned. The proof the logical layer is realisable. |
-| [portability-proof.md](portability-proof.md) | The same logical layer expressed on two further public-archetype stacks (a Google-shaped cloud; an Azure-and-Snowflake-shaped cloud), with **zero logical-layer edits**. |
-| [eval/evaluation-framework.md](eval/evaluation-framework.md) | The evaluation framework the capabilities answer to: seven groups, 41 dimensions, anchored to recognised standards. The requirements specification the architecture satisfies. |
+| [Logical reference architecture](logical-reference-architecture.md) | The capabilities, contracts, information classes, trust boundaries, and links to the evaluation requirements. |
+| [Illustrative solution architecture](illustrative-solution-architecture.md) | One component design that applies the logical contracts. |
+| [Alternative solution patterns](alternative-solution-patterns.md) | Other ways to place the same contracts across an estate. |
+| [Evaluation framework](eval/evaluation-framework.md) | The requirements, evidence, and failure conditions used to assess a working system. |
+
+### Diagrams
+
+Each SVG image comes from a D2 text file. The trust boundary diagram also has Mermaid source.
+
+| Diagram | What it shows | Source |
+|---|---|---|
+| [Summary](diagrams/summary-at-a-glance.svg) | The full design and the controls in the deterministic spine. | [D2](diagrams/summary-at-a-glance.d2) |
+| [Capability map](diagrams/view1-capability-map.svg) | The capabilities grouped by the outcome they own. | [D2](diagrams/view1-capability-map.d2) |
+| [Components and flows](diagrams/view2-component-flow.svg) | Information stores, derived views, routing, durable work, and release. | [D2](diagrams/view2-component-flow.d2) |
+| [Reasoning tiers](diagrams/view3-two-tier-expression.svg) | Intent routing, reasoning routing, the general model, and the specialist inventory. | [D2](diagrams/view3-two-tier-expression.d2) |
+| [Trust boundaries](diagrams/view4-mesh-topology.svg) | Business unit scopes, a sensitive domain, separate enterprises, and governed projections. | [D2](diagrams/view4-mesh-topology.d2), [Mermaid](diagrams/view4-mesh-topology.mmd) |
+| [Learning and operation](diagrams/view5-learn-and-run.svg) | Governed learning and the recovery of durable work after failure. | [D2](diagrams/view5-learn-and-run.d2) |
+| [Illustrative solution](diagrams/illustrative-solution-architecture.svg) | The logical contracts placed on one component design. | [D2](diagrams/illustrative-solution-architecture.d2) |
+| [Alternative patterns](diagrams/alternative-solution-patterns.svg) | Several ways to place the logical contracts in an estate. | [D2](diagrams/alternative-solution-patterns.d2) |
 
 ## Licence
 
-This work is licensed under the **Creative Commons Attribution 4.0 International License (CC BY 4.0)**;
-see [LICENSE](LICENSE). Use it, adapt it, build on it, with appropriate credit.
+The public release uses the Creative Commons Attribution 4.0 International licence. The licence covers the published material only. See [`LICENSE`](LICENSE) and the [CC BY 4.0 licence](https://creativecommons.org/licenses/by/4.0/).

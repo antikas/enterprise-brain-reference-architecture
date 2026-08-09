@@ -1,0 +1,45 @@
+%% View 4: trust boundaries and their allowed data paths.
+%% Each enterprise subgraph is one brain. Boxes inside Enterprise A show
+%% business unit scopes. Cylinders are stores. Hexagons are control points.
+flowchart TD
+    subgraph MESH["TOPOLOGY: each declared trust boundary has its own brain. C-G6.12 sets the storage isolation rule."]
+        subgraph BA["Enterprise A: one enterprise, several unit scopes, one master"]
+            U1["Unit scope one<br/>a regulated function. Every source, contract, entity and lineage record carries the scope label."]
+            U2["Unit scope two<br/>a client-facing desk. It shares real entities with unit scope one, because both belong to the same enterprise."]
+            MST["One enterprise entity master (C-G3.4)<br/>The same counterparty in both unit scopes resolves once. Rules confirm clear matches. Uncertain matches wait for review. Governed control state stores the alias decision. C-G3.1 supplies field survivorship. C-G3.3 supplies lineage."]
+            SEN[("Sensitive-domain store and index<br/>physically separate under the declared boundary")]
+            SPR{{"Governed sensitive-domain projection<br/>the enterprise master reads this view"}}
+            SA[("Enterprise A knowledge store and index<br/>indexes only what A may see")]
+            RA["Recall endpoint A<br/>returns evidence, with provenance"]
+            IA["Consolidated insight and data products (C-G2.5)<br/>answered with path and freshness, refused when stale, and structurally outside recall"]
+            U1 -- "the shared entity, seen from one scope" --> MST
+            U2 -- "the same entity, seen from the other" --> MST
+            SEN -- "approved projection" --> SPR
+            SPR -- "governed projection" --> MST
+            SA -- "what A may recall" --> RA
+            MST -- "mastered operational records" --> IA
+        end
+        subgraph BB["Enterprise B: separate trust boundary"]
+            SB[("Enterprise B knowledge store and index")]
+            RB["Recall endpoint B"]
+            OB["Enterprise B operational systems<br/>own current operational facts"]
+            SB -- "what B may recall" --> RB
+            OB -- "governed live read within B" --> SB
+        end
+    end
+
+    VIS["Governed visibility map (C-G4.1 · C-G6.12)<br/>Records each allowed directional projection. Each target store indexes only the content allowed by the map."]
+    DEID{{"De-identification boundary (C-G5.7)<br/>on every edge that crosses a declared trust boundary"}}
+    SUB["Shared reasoning and embedding substrate<br/>Stateless models use a stable embed-and-recall contract. Each corpus stays in its own store. The substrate serves each brain through its declared access path."]
+    ERA["Subject erasure (C-G5.4)<br/>The erasure authority finds every store that holds material about the subject. Each holder executes the deletion and records the result. Recovery applies the tombstone before it rebuilds derived views."]
+    GROW["Adding a trust boundary<br/>Create a brain with separate storage. Declare each allowed projection in the visibility map. Connect it to the shared substrate through the stable contract."]
+
+    BA -. "embed and recall, as a thin client" .-> SUB
+    BB -. "embed and recall, as a thin client" .-> SUB
+
+    SB -- "B's de-identified knowledge projection" --> DEID
+    DEID -- "indexed into what A may see" --> SA
+    VIS -. "declares the B-to-A projection" .-> DEID
+
+    ERA -. "spans every store the subject touches" .-> MESH
+    SUB -. "serves the new brain" .-> GROW

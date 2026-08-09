@@ -1,0 +1,258 @@
+# View 5: learning the business and running durable work.
+direction: down
+
+style.fill: "#faf7f2"
+
+classes: {
+  spine-band: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 12
+      font-size: 15
+      bold: true
+    }
+  }
+  spine-col: {
+    style: {
+      fill: "#2c3b33"
+      stroke: "#4b5e53"
+      font-color: "#f2ede4"
+      border-radius: 9
+      font-size: 12
+    }
+  }
+  band: {
+    style: {
+      fill: "#f4efe6"
+      stroke: "#c8bfad"
+      border-radius: 12
+      font-color: "#3a3529"
+      font-size: 14
+      bold: true
+    }
+  }
+  operational: {
+    style: {
+      fill: "#e9edf3"
+      stroke: "#5b6e8c"
+      border-radius: 9
+      font-color: "#26313f"
+      font-size: 12
+    }
+  }
+  control: {
+    style: {
+      fill: "#efe8dc"
+      stroke: "#9a8768"
+      border-radius: 9
+      font-color: "#3a3123"
+      font-size: 12
+    }
+  }
+  plain: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#c9c2b4"
+      border-radius: 9
+      font-color: "#33312c"
+      font-size: 12
+    }
+  }
+  store: {
+    shape: cylinder
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      font-size: 12
+    }
+  }
+  gate: {
+    style: {
+      fill: "#fffdf9"
+      stroke: "#a8452c"
+      stroke-width: 2
+      border-radius: 14
+      font-color: "#3a2118"
+      font-size: 13
+    }
+  }
+  badge: {
+    style: {
+      fill: "#1e2a24"
+      stroke: "#1e2a24"
+      font-color: "#f2ede4"
+      border-radius: 8
+      font-size: 11
+    }
+  }
+  alarm: {
+    style: {
+      fill: "#f6e3dd"
+      stroke: "#a8452c"
+      stroke-width: 2
+      border-radius: 9
+      font-color: "#4a2118"
+      font-size: 12
+    }
+  }
+  k-path: {
+    style: {
+      stroke: "#4a7b5e"
+      stroke-width: 2
+      font-color: "#2e4a3a"
+      font-size: 11
+    }
+  }
+  o-path: {
+    style: {
+      stroke: "#5b6e8c"
+      stroke-width: 2
+      stroke-dash: 4
+      font-color: "#3b4a60"
+      font-size: 11
+    }
+  }
+  c-path: {
+    style: {
+      stroke: "#9a8768"
+      stroke-width: 1
+      stroke-dash: 2
+      font-color: "#6b5c44"
+      font-size: 11
+    }
+  }
+  gate-path: {
+    style: {
+      stroke: "#a8452c"
+      stroke-width: 2
+      font-color: "#7d3320"
+      font-size: 11
+    }
+  }
+  foot: {
+    shape: text
+    style: {
+      font-size: 12
+      font-color: "#5c574d"
+    }
+  }
+}
+
+spine: "DETERMINISTIC SPINE: evidence supports learned structure. The work journal records intent before effects and results before output." {
+  class: spine-band
+  near: top-center
+  grid-columns: 4
+  grid-gap: 16
+  s1: "Derived contracts use observed\nevidence. Maker-checker review\ngoverns promotion. Evidence grows\nwith consequence." { class: spine-col }
+  s2: "Each assembled figure records\nits source path and build stamp." { class: spine-col }
+  s3: "Intent persists before the effect;\nthe result persists before anyone\nsees it." { class: spine-col }
+  s4: "Repair follows dependency order\nand ends in a recorded success or\nfailure state." { class: spine-col }
+}
+
+learn: "LEARNING THE BUSINESS" {
+  class: band
+  grid-columns: 2
+  grid-gap: 16
+
+  discover: "Discover and prioritise the estate (C-G1.6)\nEach system and store records its access path, sensitivity and materiality.\nMateriality, connection cost and risk set the order. A source with a weak\ninterface receives a degraded-reach status." { class: plain }
+
+  connectors: "Allocate every stream to one plane (C-G1.6)\nThe allowed values are knowledge ingest, operational federation and human capture.\nMissing allocation fails configuration. Each connector declares its plane,\nconformance evidence, scope label, deletion signal and tombstone signal." { class: plain }
+
+  authored: "Authored engineering contracts\nPeople write and version these contracts. Governed control state stores them." { class: control }
+
+  contracts: "Derive organisational contracts (C-G2.6)\nSource-boundary, data-product and service-model contracts share one lifecycle.\nEvidence creates an observed draft. Maker-checker review promotes the contract\nto of-record status. Each contract has a clear scope, independent evidence,\noperation-level confirmation and live conformance checks. Its envelope references\none semantic identity admitted by C-G3.2." { class: control }
+
+  master: "Resolve the enterprise's entities (C-G3.4)\nRules resolve clear matches across sources and business unit scopes. Uncertain\nmatches wait for review. C-G3.1 supplies the field survivorship verdict." { class: operational }
+
+  lineage: "Capture lineage as figures are assembled (C-G3.3)\nEach record carries its source. Each materialised figure stores a build stamp and\na queryable source path. A federated answer stores its query-time lineage before\nrelease. Release requires a valid path and matching stamp." { class: control }
+
+  insight: "Consolidate insight and generate products (C-G2.5)\nLive federation serves current facts. A declared projection carries a build stamp,\nan independent reconciliation result, a source path and a freshness state. Recall\nreads the knowledge plane. A source change marks the projection stale until rebuild\nand reconciliation complete." { class: operational }
+
+  service: "Frame the service model at enterprise scope (C-G2.6)\nIndependent evidence describes each service, its consumer and its operation.\nThe people who run the service confirm it at operation level." { class: plain }
+
+  discover -> connectors: "reach, prioritised"
+  connectors -> master: "entity evidence, from every allocated source"
+  connectors -> contracts: "observed source boundaries"
+  connectors -> lineage: "where each figure will come from"
+  authored -> contracts: "referenced, and kept distinct from what is derived"
+  lineage -> master: "supplies lineage"
+  master -> insight: "one reconciled view of the enterprise's entities"
+  lineage -> insight: "path and freshness on every answer"
+  contracts -> insight: "the contracts products are generated against, and tested for conformance"
+  insight -> service: "what the organisation does, read off independent evidence"
+}
+
+admission: "Claim admission (C-G3.2)\nA person approves each semantic claim before it enters L0. Promotion evidence grows\nwith consequence. Governed live queries read current operational facts from their\nowning systems." {
+  class: gate
+  spinebadge: "SPINE CONTROL · claim admission" { class: badge }
+}
+
+l0: "Knowledge source of truth (L0)" { class: store }
+
+run: "RUNNING DURABLE WORK" {
+  class: band
+  grid-columns: 2
+  grid-gap: 16
+
+  durable: "Durable agent work (C-X3)\nA task-keyed journal stores nested intent and result units under a versioned session\ndefinition. Intent is saved before an effect. The result is saved before output,\nacknowledgement or offset advance. Recovery uses the effect class. It repeats pure\nreads, retries safe writes and reconciles uncertain non-idempotent outcomes. Replay\nresumes and audits recorded state." { class: plain }
+
+  oversight: "Human oversight (C-G5.2)\nThis service owns the human verdict. The work journal stores the approval wait\nand resumes work from the recorded verdict." {
+    class: gate
+    spinebadge: "SPINE CONTROL · recorded human verdict" { class: badge }
+  }
+
+  compaction: "Journal summary\nA generated reading view over the work journal. Replay reads the full journal." { class: plain }
+
+  repair: "Bounded repair, in dependency order" {
+    class: band
+    grid-columns: 1
+    grid-gap: 12
+    detect: "Detect silent failure (C-G6.2)\ncompare reported success with expected evidence" { class: plain }
+    degrade: "Degrade gracefully (C-G6.5)\nserve the answer surfaces whose dependencies remain healthy" { class: plain }
+    recover: "Recover from store (C-G6.3)\nrestore every surviving authoritative family: L0, governed control state,\nworkflow envelopes and permitted payloads, release and refusal records;\nthen rebuild the derived views from them" { class: plain }
+    observe: "Observe the running system (C-G6.11)\nhealth, dependency, environment, schedule and repair telemetry, correlated\nto the workflow event that carried the work" { class: plain }
+    terminal: "Terminal repair state\nThe repair run records success or failure and ends." { class: alarm }
+    detect -> degrade: "limit affected services"
+    degrade -> recover: "restore recorded sources"
+    recover -> observe: "check service health"
+    observe -> terminal: "record the result"
+  }
+
+  irreversible: "Human gate on irreversible recovery\nA person approves each irreversible recovery step. The journal stores the wait\nand the verdict across restarts." {
+    class: gate
+    spinebadge: "SPINE CONTROL · human-approved recovery" { class: badge }
+  }
+
+  durable -> oversight: "approval wait, persisted before the work pauses"
+  oversight -> durable: "verdict recorded, and the work resumes where it stopped"
+  durable -> compaction: "builds the reading view"
+  durable -> repair: "the work the repair loop is protecting"
+  repair.recover -> irreversible: "an irreversible step, held"
+  irreversible -> repair.recover: "released by a person, and the release is recorded"
+}
+
+release: "Governed release (C-G4.8)\nEvery registered external answer is classified. The service consumes the required\nverdicts and saves the release or refusal record before output." {
+  class: gate
+  spinebadge: "SPINE CONTROL · registered release path" { class: badge }
+}
+
+consumer: "The acting user, or a calling service" {
+  shape: oval
+  class: plain
+}
+
+learn.service -> admission: "promoted, with evidence proportional to consequence" { class: gate-path }
+admission -> l0: "admitted" { class: gate-path }
+l0 -> run.durable: "what the brain may act on as true" { class: k-path }
+learn.insight -> run.durable: "reached live, or served from a declared projection" { class: o-path }
+run.durable -> release: "the answer, or the effect's report" { class: gate-path }
+release -> consumer: "and the record was persisted first" { class: gate-path }
+run.repair.observe -> learn.insight: "a source-change or staleness signal invalidates the affected projection" { class: c-path }
+
+legend: "Legend. The dark band shows shared truth controls. The dark cylinder is L0. Green edges carry approved knowledge. Blue-grey marks the operational\nplane. Sand marks governed control state. A red rule marks a control point. The repair strip follows dependency order and ends in a recorded result." {
+  class: foot
+  near: bottom-center
+}
